@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 23:10:28 by dselmy            #+#    #+#             */
-/*   Updated: 2021/08/17 02:50:23 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/04/09 20:03:04 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ int		cast_ray(char **map, t_plr *plr, double dir, int *color)
 	delta_y = -SCALE * sin(dir);
 	dist = 0;
 //	printf("in cast ray\n");
-	printf("cos(dir) = %f sin(dir) = %f\n", cos(dir), sin(dir));
+	// printf("cos(dir) = %f sin(dir) = %f\n", cos(dir), sin(dir));
 //	while ((int)(x / SCALE) >= 0 && (int)(y / SCALE) && (map[(int)(y / SCALE)][(int)(x / SCALE)] == '0' || map[(int)(y / SCALE)][(int)(x / SCALE)] == '2'))
 	while (map[(int)(y / SCALE)][(int)(x / SCALE)] == '0' || map[(int)(y / SCALE)][(int)(x / SCALE)] == '2')
 	{
@@ -213,7 +213,7 @@ void	put_ray(t_win *win, int w_color, int w_h, int x)
 	int		wall_st;
 	int		wall_end;
 
-	printf("in put ray, height = %d win_y = %d\n", w_h, win->y_win);
+	// printf("in put ray, height = %d win_y = %d\n", w_h, win->y_win);
 	wall_st = (win->y_win - w_h) / 2;
 	wall_end = (win->y_win + w_h) / 2;
 	if (wall_st < 0)
