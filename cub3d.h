@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lizard <lizard@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/04/09 20:44:41 by lizard           ###   ########.fr       */
+/*   Updated: 2022/04/10 19:20:02 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,16 @@ int		cub(t_data *all);
 
 int		stop_game(t_data *all);
 
+/*player movement*/
+void	plr_up(char **map, t_plr *plr_data);
+void	plr_down(char **map, t_plr *plr_data);
+void	plr_left(char **map, t_plr *plr_data);
+void	plr_right(char **map, t_plr *plr_data);
+void	plr_rot_right(t_plr *plr_data);
+void	plr_rot_left(t_plr *plr_data);
+
 //DRAFT VERSION
 int		raycast(char **map, t_plr *plr, t_win *win);
+void	put_ray(t_win *win, int w_color, int w_h, int x);
 
 #endif

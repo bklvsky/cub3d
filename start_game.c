@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 15:07:58 by dselmy            #+#    #+#             */
-/*   Updated: 2021/10/26 01:08:07 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/04/10 19:24:25 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,10 @@
 
 int		start_win(t_win *win, int x_res, int y_res)
 {
-	printf("starting a window\n");
 	win->mlx = mlx_init();
-	printf("got mlx_ptr\n");
 	win->img = mlx_new_image(win->mlx, x_res, y_res);
-	printf("got img_ptr\n");
 	win->addr = mlx_get_data_addr(win->img, &(win->bpp), &(win->line_len), &(win->en));
-	printf("got addr_ptr\n");
 	win->win = mlx_new_window(win->mlx, x_res, y_res, "cub3d");
-	printf("got new window\n");
 	win->x_win = x_res;
 	win->y_win = y_res;
 	return (0);
@@ -37,7 +32,6 @@ int		put_map(t_win *win, t_config *cnfg, char **map)
 	
 	y_img = 0;
 	y = 0;
-//	printf("in put map\n");
 	while (map[y] && y_img <= cnfg->y_res)
 	{
 		x = 0;
@@ -45,10 +39,9 @@ int		put_map(t_win *win, t_config *cnfg, char **map)
 		while (map[y][x] && x_img <= cnfg->x_res)
 		{
 			if (map[y][x] == '1')
-			{
-		//		printf("in pixel put in put map\n");
 				my_pixel_put(win, x_img, y_img, 0x001100FF);
-			}
+			else
+				my_pixel_put(win, x_img, y_img, 0x000000);
 			x_img += 1;
 			if ((x_img % SCALE) == 0)
 				x += 1;
@@ -102,16 +95,75 @@ void	put_square(t_win *win, int x, int y)
 	}
 }
 
+void	put_ceil(t_win *win, int x, int wall_st)
+{
+	int		y;
+
+	y = 0;
+	while (y != wall_st)
+	{
+		my_pixel_put(win, x, y, 0x00FFFFFF);
+		y += 1;
+	}
+}
+
+void	put_wall(t_win *win, int x, int w_st, int w_end, int color)
+{
+	while (w_st != w_end)
+	{
+		my_pixel_put(win, x, w_st, color);
+		w_st += 1;
+	}
+}
+
+void	put_floor(t_win *win, int x, int w_end)
+{
+	while (w_end != win->y_win)
+	{
+		my_pixel_put(win, x, w_end, 0x00D4D4D4);
+		w_end += 1;
+	}
+}
+
+void	put_ray(t_win *win, int w_color, int w_h, int x)
+{
+	int		wall_st;
+	int		wall_end;
+
+	wall_st = (win->y_win - w_h) / 2;
+	wall_end = (win->y_win + w_h) / 2;
+	if (wall_st < 0)
+		wall_st = 0;
+	if (wall_end > win->y_win)
+		wall_end = win->y_win;
+	put_ceil(win, x, wall_st);
+	put_wall(win, x, wall_st, wall_end, w_color);
+	put_floor(win, x, wall_end);
+}
+
+void put_raycast(t_win * win, double dist, int win_x)
+{
+	if (win_x < win->x_win)
+	{
+		double wall_height = fabs(win->y_win * 10 / dist);
+		// printf("%f %f %f %f\n", dist, ray_dir, cos(ray_dir), wall_height);
+		// printf("wall height = %f\n", wall_height);
+		put_ray(win, 0xFF0000, round(wall_height), win_x);
+	}
+}
+
 int		put_player(t_win *win, t_plr *plr_data, char **map)
 {
 	double	y;
 	double	x;
 	double	dir_start;
 	double	dir_end;
+	double dist;
 	
-	dir_start = plr_data->plr_dir_rad - M_PI_4;
-	dir_end = plr_data->plr_dir_rad + M_PI_4;
-	while (dir_start <= dir_end)
+	dir_start = plr_data->plr_dir_rad + M_PI_4;
+	dir_end = plr_data->plr_dir_rad - M_PI_4;
+	int i = 0;
+	while (dir_start >= dir_end)
 	{
 		y = plr_data->plr_pos_y;
 		x = plr_data->plr_pos_x;
@@ -121,101 +173,24 @@ int		put_player(t_win *win, t_plr *plr_data, char **map)
 			y -= sin(dir_start);
 			x += cos(dir_start);
 		}
-		dir_start += M_PI_2 / 512;
+		my_pixel_put(win, (int)x, (int)y, 0xFF0000);
+		dist = sqrtf(powf(y - plr_data->plr_pos_y + sinf(dir_start), 2) + powf(x - plr_data->plr_pos_x - cosf(dir_start), 2)) * sinf(M_PI / 2 - dir_start + plr_data->plr_dir_rad);
+		put_raycast(win, dist, 34 * SCALE + i);
+		i += 1;
+		dir_start -= M_PI_2 / 512;
 	}
-//	printf("in put player\n");
-	//put_square(win, (int)plr_data->plr_pos_x, (int)plr_data->plr_pos_y);
-	return (0);
-}
-
-int		plr_up(char **map, t_plr *plr_data)
-{
-	double	y;
-	double	x;
-
-	y = plr_data->plr_pos_y - sin(plr_data->plr_dir_rad);
-	x = plr_data->plr_pos_x + cos(plr_data->plr_dir_rad);
-//	printf("in plr up\n");
-	if (map[(int)(y / SCALE)][(int)(x / SCALE)] != '1')
-	{
-		plr_data->plr_pos_y = y;
-		plr_data->plr_pos_x = x;
-	}
-	return (0);
-}
-
-int		plr_down(char **map, t_plr *plr_data)
-{
-//	printf("in plr down\n");
-	double	y;
-	double	x;
-
-	y = plr_data->plr_pos_y + sin(plr_data->plr_dir_rad);
-	x = plr_data->plr_pos_x - cos(plr_data->plr_dir_rad);
-	if (map[(int)(y / SCALE)][(int)(x / SCALE)] != '1')
-	{
-		plr_data->plr_pos_y = y;
-		plr_data->plr_pos_x = x;
-	}
-	return (0);
-}
-
-int		plr_left(char **map, t_plr *plr_data)
-{
-	double	y;
-	double	x;
-
-	y = plr_data->plr_pos_y - cos(plr_data->plr_dir_rad);
-	x = plr_data->plr_pos_x - sin(plr_data->plr_dir_rad);
-//	printf("pos y = %d, pos x = %d\n", plr_data->plr_pos_y, plr_data->plr_pos_x);
-	if (map[(int)(y / SCALE)][(int)(x / SCALE)] != '1')
-	{
-		plr_data->plr_pos_y = y;
-		plr_data->plr_pos_x = x;
-	}
-//	printf(" new pos y = %d, pos x = %d\n", plr_data->plr_pos_y, plr_data->plr_pos_x);
-	return (0);
-}
-
-int		plr_right(char **map, t_plr *plr_data)
-{
-	double	y;
-	double	x;
-
-	y = plr_data->plr_pos_y + cos(plr_data->plr_dir_rad);
-	x = plr_data->plr_pos_x + sin(plr_data->plr_dir_rad);
-	if (map[(int)(y / SCALE)][(int)(x / SCALE)] !='1')
-	{
-		plr_data->plr_pos_y = y;
-		plr_data->plr_pos_x = x;
-	}
-	return (0);
-}
-
-
-
-int		plr_rot_right(t_plr *plr_data)
-{
-	plr_data->plr_dir_rad -= 0.05;
-	return (0);
-}
-
-int		plr_rot_left(t_plr *plr_data)
-{
-	plr_data->plr_dir_rad += 0.05;
 	return (0);
 }
 
 void	put_screen(t_data *all)
 {
-//	printf("in put screen\n");
 	mlx_do_sync(all->win->mlx);
 //	mlx_destroy_image(all->win->mlx, all->win->img);
 //	all->win->img = mlx_new_image(all->win->mlx, all->cnfg->x_res, all->cnfg->y_res);
 //	all->win->addr = mlx_get_data_addr(all->win->img, &(all->win->bpp), &(all->win->line_len), &(all->win->en));
-	raycast(all->map, all->plr_data, all->win);
-//	put_map(all->win, all->cnfg, all->map);
-//	put_player(all->win, all->plr_data, all->map);
+	// raycast(all->map, all->plr_data, all->win);
+	put_map(all->win, all->cnfg, all->map);
+	put_player(all->win, all->plr_data, all->map);
 	mlx_put_image_to_window(all->win->mlx, all->win->win, all->win->img, 0, 0);
 }
 
@@ -241,9 +216,9 @@ int		cub(t_data *all)
 {
 //	print_config(all->cnfg, all->map);
 	start_win(all->win, all->cnfg->x_res, all->cnfg->y_res);
-//	put_map(all->win, all->cnfg, all->map);
-//	put_player(all->win, all->plr_data, all->map);
-	raycast(all->map, all->plr_data, all->win);
+	put_map(all->win, all->cnfg, all->map);
+	put_player(all->win, all->plr_data, all->map);
+	// raycast(all->map, all->plr_data, all->win);
 	mlx_put_image_to_window(all->win->mlx, all->win->win, all->win->img, 0, 0);
 	mlx_hook(all->win->win, 2, (1L<<0), &key_handle, all);
 	mlx_hook(all->win->win, 17, (1L<<17), stop_game, all);
