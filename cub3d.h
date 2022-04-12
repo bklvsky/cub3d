@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/04/12 21:30:22 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/04/13 00:52:17 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,16 @@
 # define COLOR_EA 0x0000FF00
 # define COLOR_WE 0x00FFFF00
 
+typedef struct s_img
+{
+	void		*img;
+	void		*addr;
+	int			line_len;
+	int			bpp;
+	int			en;
+	int			height;
+	int			width;
+}				t_img;
 
 typedef struct	s_win
 {
@@ -78,6 +88,11 @@ typedef struct	s_win
 	int			en;
 	int			x_win;
 	int			y_win;
+	t_img		no_tex;
+	t_img		so_tex;
+	t_img		ea_tex;
+	t_img		we_tex;
+	t_img		spr_tex;
 }				t_win;
 
 typedef struct	s_config
@@ -86,10 +101,10 @@ typedef struct	s_config
 	int			x_res;
 	int			y_res;
 	int			s_key;
-	char	 	*no_tex_path;
-	char	 	*so_tex_path;
-	char 		*ea_tex_path;
-	char	 	*we_tex_path;
+	char		*no_tex_path;
+	char		*so_tex_path;
+	char		*ea_tex_path;
+	char		*we_tex_path;
 	char		*spr_tex_path;
 	int			ceil_color;
 	int			floor_color;
@@ -163,11 +178,18 @@ int		check_map_hor(char **map, t_plr *plr_data, int *x_max);
 int		check_sym_map(char *line, int *x, t_plr *plr_data);
 
 /*game utils*/
+int		get_tex_img(void *mlx, char *path, t_img *tex);
 void	my_pixel_put(t_win *win, int x, int y, int color);
 
 int		cub(t_data *all);
 
 int		stop_game(t_data *all);
+
+/*get texture*/
+int		get_texture(t_win *win, t_config *cnfg);
+
+/*draw*/
+void	put_ray(t_win *win, int w_color, int w_h, int x);
 
 /*player movement*/
 void	plr_up(char **map, t_plr *plr_data);

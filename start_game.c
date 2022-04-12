@@ -6,20 +6,31 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 15:07:58 by dselmy            #+#    #+#             */
-/*   Updated: 2022/04/12 21:20:26 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/04/13 00:51:44 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		start_win(t_win *win, int x_res, int y_res)
+int		start_win(t_win *win, t_config *cnfg)
 {
 	win->mlx = mlx_init();
-	win->img = mlx_new_image(win->mlx, x_res, y_res);
-	win->addr = mlx_get_data_addr(win->img, &(win->bpp), &(win->line_len), &(win->en));
-	win->win = mlx_new_window(win->mlx, x_res, y_res, "cub3d");
-	win->x_win = x_res;
-	win->y_win = y_res;
+	if (!win->mlx)
+		return (-1);
+	win->img = mlx_new_image(win->mlx, cnfg->x_res, cnfg->y_res);
+	if (!win->img)
+		return (-1);
+	win->addr = mlx_get_data_addr(win->img, &(win->bpp), \
+								&(win->line_len), &(win->en));
+	if (!win->addr)
+		return (-1);
+	win->win = mlx_new_window(win->mlx, cnfg->x_res, cnfg->y_res, "cub3d");
+	if (!win->win)
+		return (-1);
+	win->x_win = cnfg->x_res;
+	win->y_win = cnfg->y_res;
+	if (get_texture(win, cnfg) < 0) // uncomment when the textures are ready
+		return (-1);//
 	return (0);
 }
 
@@ -93,52 +104,6 @@ void	put_square(t_win *win, int x, int y)
 		}
 		i += 1;
 	}
-}
-
-void	put_ceil(t_win *win, int x, int wall_st)
-{
-	int		y;
-
-	y = 0;
-	while (y != wall_st)
-	{
-		my_pixel_put(win, x, y, 0x00FFFFFF);
-		y += 1;
-	}
-}
-
-void	put_wall(t_win *win, int x, int w_st, int w_end, int color)
-{
-	while (w_st != w_end)
-	{
-		my_pixel_put(win, x, w_st, color);
-		w_st += 1;
-	}
-}
-
-void	put_floor(t_win *win, int x, int w_end)
-{
-	while (w_end != win->y_win)
-	{
-		my_pixel_put(win, x, w_end, 0x00D4D4D4);
-		w_end += 1;
-	}
-}
-
-void	put_ray(t_win *win, int w_color, int w_h, int x)
-{
-	int		wall_st;
-	int		wall_end;
-
-	wall_st = (win->y_win - w_h) / 2;
-	wall_end = (win->y_win + w_h) / 2;
-	if (wall_st < 0)
-		wall_st = 0;
-	if (wall_end > win->y_win)
-		wall_end = win->y_win;
-	put_ceil(win, x, wall_st);
-	put_wall(win, x, wall_st, wall_end, w_color);
-	put_floor(win, x, wall_end);
 }
 
 void put_raycast(t_win * win, double dist, int win_x, int color)
@@ -221,8 +186,8 @@ int		key_handle(int key, t_data *all)
 
 int		cub(t_data *all)
 {
-//	print_config(all->cnfg, all->map);
-	start_win(all->win, all->cnfg->x_res, all->cnfg->y_res);
+	if (start_win(all->win, all->cnfg) < 0)
+		return (-1); //error management
 	put_map(all->win, all->cnfg, all->map);
 	put_player(all->win, all->plr_data, all->map);
 	// raycast(all->map, all->plr_data, all->win);
