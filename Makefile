@@ -6,7 +6,7 @@
 #    By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/27 21:46:39 by dselmy            #+#    #+#              #
-#    Updated: 2022/04/12 21:59:08 by dselmy           ###   ########.fr        #
+#    Updated: 2022/04/13 00:55:16 by dselmy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ MLX_DIR =			./mlx_linux/
 LIBFT_DIR =			./libft/
 
 SRCS =			./cub3d.c \
+				./draw.c \
 				./get_texture.c \
 				./init.c \
 				./parse_end.c \

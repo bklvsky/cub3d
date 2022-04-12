@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/04/13 00:52:17 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/04/13 00:54:29 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,6 @@ int		check_map_hor(char **map, t_plr *plr_data, int *x_max);
 int		check_sym_map(char *line, int *x, t_plr *plr_data);
 
 /*game utils*/
-int		get_tex_img(void *mlx, char *path, t_img *tex);
 void	my_pixel_put(t_win *win, int x, int y, int color);
 
 int		cub(t_data *all);
