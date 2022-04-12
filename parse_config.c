@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 21:25:55 by dselmy            #+#    #+#             */
-/*   Updated: 2021/08/05 21:39:39 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/04/12 21:28:34 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	check_all_data(t_data *all)
 
 int		check_identifiers(t_config *cnfg, char *line)
 {
-	if (ft_strncmp(line, "R ", 2) == 0)
+	if (ft_strncmp(line, "R ", 2) == 0) // not needed anymore
 		return (parse_resolution(line, cnfg, &cnfg->data[RES]));
 	else if (ft_strncmp(line, "NO ", 3) == 0)
 		return (parse_tex_pth(&cnfg->no_tex_path, line, &cnfg->data[NO_TEX]));
@@ -38,7 +38,7 @@ int		check_identifiers(t_config *cnfg, char *line)
 		return (parse_tex_pth(&cnfg->we_tex_path, line, &cnfg->data[WE_TEX]));
 	else if (ft_strncmp(line, "EA ", 3) == 0)
 		return (parse_tex_pth(&cnfg->ea_tex_path, line, &cnfg->data[EA_TEX]));
-	else if (ft_strncmp(line, "S ", 2) == 0)
+	else if (ft_strncmp(line, "S ", 2) == 0) // not needed anymore
 		return (parse_tex_pth(&cnfg->spr_tex_path, line, &cnfg->data[SP_TEX]));
 	else if (ft_strncmp(line, "F ", 2) == 0)
 		return (parse_color(&cnfg->floor_color, line, &cnfg->data[FLOOR_COL]));
@@ -79,16 +79,17 @@ int		parse_color(int	*color, char *line, int *flag)
 
 int		parse_tex_pth(char **tex_path, char *line, int *flag)
 {
+	// it should store textures like mlx images; copy from solong
 	if (!set_flag(flag))
 		return (ERR_DUPL_DATA);
 	if (!(*tex_path = ft_strtrim(line + 2, " ")))
 		return (ERR_STD);
-	if (!check_file_format(*tex_path, ".bmp"))
+	if (!check_file_format(*tex_path, ".bmp")) // not bmp
 		return (ERR_TEX_FORMAT);
 	return (0);
-	// maybe i need to store fds, not paths
 }
 
+// not needed anymore; make it get resolution from screen size
 int		parse_resolution(char *line, t_config *cnfg, int *flag)
 {
 	char	**array;

@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 15:07:58 by dselmy            #+#    #+#             */
-/*   Updated: 2022/04/10 19:24:25 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/04/12 21:20:26 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,15 +141,28 @@ void	put_ray(t_win *win, int w_color, int w_h, int x)
 	put_floor(win, x, wall_end);
 }
 
-void put_raycast(t_win * win, double dist, int win_x)
+void put_raycast(t_win * win, double dist, int win_x, int color)
 {
 	if (win_x < win->x_win)
 	{
-		double wall_height = fabs(win->y_win * 10 / dist);
+		double wall_height = win->y_win * 16 / dist;
 		// printf("%f %f %f %f\n", dist, ray_dir, cos(ray_dir), wall_height);
 		// printf("wall height = %f\n", wall_height);
-		put_ray(win, 0xFF0000, round(wall_height), win_x);
+		put_ray(win, color, round(wall_height), win_x);
 	}
+}
+
+int		get_wall_side(float y, float x, float ray_dir, char **map)
+{
+	if (map[(int)(y / SCALE)][(int)((x - cos(ray_dir) * 0.1) / SCALE)] == '0')
+	{
+		if (cos(ray_dir) > 0)
+			return COLOR_EA;
+		return COLOR_WE;
+	}
+	if (sin(ray_dir) > 0)
+		return COLOR_NO;
+	return COLOR_SO;
 }
 
 int		put_player(t_win *win, t_plr *plr_data, char **map)
@@ -160,8 +173,8 @@ int		put_player(t_win *win, t_plr *plr_data, char **map)
 	double	dir_end;
 	double dist;
 	
-	dir_start = plr_data->plr_dir_rad + M_PI_4;
-	dir_end = plr_data->plr_dir_rad - M_PI_4;
+	dir_start = plr_data->plr_dir_rad + M_PI_2 / 3;
+	dir_end = plr_data->plr_dir_rad - M_PI_2 / 3;
 	int i = 0;
 	while (dir_start >= dir_end)
 	{
@@ -169,15 +182,13 @@ int		put_player(t_win *win, t_plr *plr_data, char **map)
 		x = plr_data->plr_pos_x;
 		while (map[(int)(y / SCALE)][(int)(x / SCALE)] == '0' || map[(int)(y / SCALE)][(int)(x / SCALE)] == '2')
 		{
-			my_pixel_put(win, (int)x, (int)y, 0x00FFA500);
-			y -= sin(dir_start);
-			x += cos(dir_start);
+			y -= sin(dir_start) / SCALE;
+			x += cos(dir_start) / SCALE;
 		}
-		my_pixel_put(win, (int)x, (int)y, 0xFF0000);
-		dist = sqrtf(powf(y - plr_data->plr_pos_y + sinf(dir_start), 2) + powf(x - plr_data->plr_pos_x - cosf(dir_start), 2)) * sinf(M_PI / 2 - dir_start + plr_data->plr_dir_rad);
-		put_raycast(win, dist, 34 * SCALE + i);
+		dist = sqrtf((y - plr_data->plr_pos_y) * (y - plr_data->plr_pos_y) + (x - plr_data->plr_pos_x) * (x - plr_data->plr_pos_x)) * sinf(M_PI / 2 - dir_start + plr_data->plr_dir_rad);
+		put_raycast(win, dist, i, get_wall_side(y, x, dir_start, map));
 		i += 1;
-		dir_start -= M_PI_2 / 512;
+		dir_start -= M_PI / 3 / win->x_win;
 	}
 	return (0);
 }
@@ -185,10 +196,6 @@ int		put_player(t_win *win, t_plr *plr_data, char **map)
 void	put_screen(t_data *all)
 {
 	mlx_do_sync(all->win->mlx);
-//	mlx_destroy_image(all->win->mlx, all->win->img);
-//	all->win->img = mlx_new_image(all->win->mlx, all->cnfg->x_res, all->cnfg->y_res);
-//	all->win->addr = mlx_get_data_addr(all->win->img, &(all->win->bpp), &(all->win->line_len), &(all->win->en));
-	// raycast(all->map, all->plr_data, all->win);
 	put_map(all->win, all->cnfg, all->map);
 	put_player(all->win, all->plr_data, all->map);
 	mlx_put_image_to_window(all->win->mlx, all->win->win, all->win->img, 0, 0);
