@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 01:43:54 by dselmy            #+#    #+#             */
-/*   Updated: 2021/08/06 00:04:00 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/04/13 21:15:43 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,6 @@ int		init_win(t_win **win)
 {
 	if (!(*win = (t_win *)malloc(sizeof(t_win))))
 		return (ERR_STD);
-	/*(*win)->mlx = NULL;
-	(*win)->win = NULL;
-	(*win)->img = NULL;
-	(*win)->addr = NULL;*/
 	return (0);
 }
 
@@ -28,23 +24,16 @@ int		init_config(t_config **cnfg)
 	int		i;
 
 	i = -1;
-//	printf("init_config\n");
 	if (!(*cnfg = (t_config *)malloc(sizeof(t_config))))
 		return (ERR_STD);
 	else
 	{
 		while (++i <= 9)
 			(*cnfg)->data[i] = 0;
-//		printf("set data[]\n");
-		/*(*cnfg)->x_res = -1;
-		(*cnfg)->y_res = -1;
-		(*cnfg)->ceil_color = -1;
-		(*cnfg)->floor_color = -1;*/
 		(*cnfg)->no_tex_path = NULL;
 		(*cnfg)->so_tex_path = NULL;
 		(*cnfg)->ea_tex_path = NULL;
 		(*cnfg)->we_tex_path = NULL;
-		(*cnfg)->spr_tex_path = NULL;
 	}
 	return (0);
 }

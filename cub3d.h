@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/04/13 00:54:29 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/04/13 19:49:46 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,14 @@
 
 # define SCALE 16
 
-# define RES 0
-# define NO_TEX 1
-# define SO_TEX 2
+# define NO_TEX 0
+# define SO_TEX 1
+# define WE_TEX 2
 # define EA_TEX 3
-# define WE_TEX 4
-# define SP_TEX 5
-# define CEIL_COL 6
-# define FLOOR_COL 7
-# define MAP 8
-# define S_KEY 9
+// # define SP_TEX 5 (only for bonuses)
+# define FLOOR_COL 4
+# define CEIL_COL 5
+# define MAP 6
 
 # define ERR_STD -14
 # define ERR_ARG_NO_FILE -1
@@ -97,7 +95,7 @@ typedef struct	s_win
 
 typedef struct	s_config
 {
-	int			data[10];
+	int			data[7]; // make it into identifiers order
 	int			x_res;
 	int			y_res;
 	int			s_key;
@@ -105,7 +103,7 @@ typedef struct	s_config
 	char		*so_tex_path;
 	char		*ea_tex_path;
 	char		*we_tex_path;
-	char		*spr_tex_path;
+	// char		*spr_tex_path; for bonus
 	int			ceil_color;
 	int			floor_color;
 }				t_config;
@@ -153,11 +151,12 @@ int		parse_map(t_data *all, t_list **map_ptr);
 void	parser(t_data *all);
 
 /*parse config*/
-int		check_identifiers(t_config *cnfg, char *line);
+int		check_identifiers(int id_number, t_config *cnfg, char *line);
 int		parse_color(int	*color, char *line, int *flag);
 int		parse_tex_pth(char **tex_path, char *line, int *flag);
 int		parse_resolution(char *line, t_config *cnfg, int *flag);
 void	check_all_data(t_data *all);
+char	*get_identifier(int id_number);
 
 int		parse_color_end(char **array, char *line_wo_spaces, int error);
 int		parse_res_end(char **array, int error);

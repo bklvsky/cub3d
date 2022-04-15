@@ -6,31 +6,30 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 15:07:58 by dselmy            #+#    #+#             */
-/*   Updated: 2022/04/13 00:51:44 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/04/13 19:59:46 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		start_win(t_win *win, t_config *cnfg)
+int		start_win(t_win *win)
 {
 	win->mlx = mlx_init();
 	if (!win->mlx)
 		return (-1);
-	win->img = mlx_new_image(win->mlx, cnfg->x_res, cnfg->y_res);
+	mlx_get_screen_size(win->mlx, &(win->x_win), &(win->y_win));
+	win->img = mlx_new_image(win->mlx, win->x_win, win->y_win);
 	if (!win->img)
 		return (-1);
 	win->addr = mlx_get_data_addr(win->img, &(win->bpp), \
 								&(win->line_len), &(win->en));
 	if (!win->addr)
 		return (-1);
-	win->win = mlx_new_window(win->mlx, cnfg->x_res, cnfg->y_res, "cub3d");
+	win->win = mlx_new_window(win->mlx, win->x_win, win->y_win, "cub3d");
 	if (!win->win)
 		return (-1);
-	win->x_win = cnfg->x_res;
-	win->y_win = cnfg->y_res;
-	if (get_texture(win, cnfg) < 0) // uncomment when the textures are ready
-		return (-1);//
+	// if (get_texture(win, cnfg) < 0) uncomment when the textures are ready
+	// 	return (-1);
 	return (0);
 }
 
@@ -85,7 +84,6 @@ void	print_config(t_config *cnfg, char **map)
 	printf("so_tex_path = %s\n", cnfg->so_tex_path);
 	printf("ea_tex_path = %s\n", cnfg->ea_tex_path);
 	printf("we_tex_path = %s\n", cnfg->we_tex_path);
-	printf("spr_tex_path = %s\n", cnfg->spr_tex_path);
 }
 
 void	put_square(t_win *win, int x, int y)
@@ -111,8 +109,6 @@ void put_raycast(t_win * win, double dist, int win_x, int color)
 	if (win_x < win->x_win)
 	{
 		double wall_height = win->y_win * 16 / dist;
-		// printf("%f %f %f %f\n", dist, ray_dir, cos(ray_dir), wall_height);
-		// printf("wall height = %f\n", wall_height);
 		put_ray(win, color, round(wall_height), win_x);
 	}
 }
@@ -186,7 +182,7 @@ int		key_handle(int key, t_data *all)
 
 int		cub(t_data *all)
 {
-	if (start_win(all->win, all->cnfg) < 0)
+	if (start_win(all->win) < 0)
 		return (-1); //error management
 	put_map(all->win, all->cnfg, all->map);
 	put_player(all->win, all->plr_data, all->map);

@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 02:12:40 by dselmy            #+#    #+#             */
-/*   Updated: 2021/08/13 02:08:51 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/04/13 20:21:18 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	free_config(t_data *all)
 	free(all->cnfg->we_tex_path);
 	free(all->cnfg->no_tex_path);
 	free(all->cnfg->so_tex_path);
-	free(all->cnfg->spr_tex_path);
 	free(all->cnfg);
 	all->cnfg = NULL;
 }

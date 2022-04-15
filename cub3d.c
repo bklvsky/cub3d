@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 00:14:57 by dselmy            #+#    #+#             */
-/*   Updated: 2022/04/09 13:36:17 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/04/15 18:29:08 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	check_arg(int argc, char **argv, t_data *all)
 {
 	if (argc < 2)
 		shut_down(all, ERR_ARG_NO_FILE);
-	else if (argc > 3)
+	else if (argc > 2)
 		shut_down(all, ERR_TOO_MANY_ARG);
 	else
 	{
@@ -24,13 +24,7 @@ void	check_arg(int argc, char **argv, t_data *all)
 			shut_down(all, ERR_ARG_FORMAT);
 		else if ((all->fd = open(argv[1], O_RDONLY)) < 0)
 			shut_down(all, ERR_STD);
-		if (argc == 3)
-		{
-			if (ft_strncmp(argv[2], "--save", 7) == 0)
-				all->cnfg->s_key = 1;
-			else
-				shut_down(all, ERR_ARG_UNKNOWN);
-		}
+
 	}
 }
 
@@ -46,6 +40,7 @@ int     main(int argc, char **argv)
 		shut_down(all, error);
 	check_arg(argc, argv, all);
 	parser(all);
+	printf("%d %d\n", all->map_h, all->map_width);
 	cub(all);
 //	shut_down(all, 0);
 		/*3. parse map -> errorccodeall  in case of unfamiliar characters 

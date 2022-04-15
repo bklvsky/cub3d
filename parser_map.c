@@ -6,12 +6,11 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 23:06:16 by dselmy            #+#    #+#             */
-/*   Updated: 2021/08/08 03:35:53 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/04/15 18:37:06 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 int		check_map_ver(char **map, int x_max)
 {
@@ -20,7 +19,6 @@ int		check_map_ver(char **map, int x_max)
 	int		flag_whitespace;
 	
 	x = -1;
-//	printf("checking map vertically\n");
 	while (++x <= x_max)
 	{
 		flag_whitespace = 0;
@@ -32,20 +30,15 @@ int		check_map_ver(char **map, int x_max)
 					return (ERR_NOT_CLOSED_MAP);
 			skip_spaces_col(map, &y, x);
 			if (map[y] && (map[y][x] != '1'))
-			{
-//				printf("map not closed on the upper side\n");
 				return (ERR_NOT_CLOSED_MAP);
-			}
 			flag_whitespace = 1;
 			skip_map_sym_col(map, &y, x);
 		}
 		if (map[y-1][x] != '1' && map[y-1][x] != ' ' && map[y-1][x])
 		{
-//			printf("the map is not closed on the last line\n");
 			return (ERR_NOT_CLOSED_MAP);
 		}
 	}
-//	printf("map checked vertically, all good\n");
 	return (0);
 }
 
@@ -75,23 +68,17 @@ int		check_one_line(char *line, t_plr *plr_data)
 	
 	x = 0;
 	flag_whitespace = 0;
-//	printf("in checkoneline\n");
 	while (line[x])
 	{
-//		printf("checking line %s\n", line);
 		if (flag_whitespace == 1)
 			if (line[x-1] != '1')
 				return (ERR_NOT_CLOSED_MAP);
 		skip_spaces_line(line, &x, &flag_whitespace);
-//		printf("skipped spaces, x = %d, line[x] = %c\n", x, line[x]);
 		if (line[x] != '1' && line[x] != '\0')
 			return (ERR_NOT_CLOSED_MAP);
-//		printf("checked for left side closed\n");
 		if (check_sym_map(line, &x, plr_data) != 0)
 			return (ERR_UKNOWN_SYM);
-//		printf("x after check sym = %d lin[x] = %c\n", x, line[x]);
 	}
-//	printf("we went out pf the cycle\n, line [x-1] = %c\n", line[x-1]);
 	if (line[x-1] != '1' && line[x-1] != ' ')
 		return (ERR_NOT_CLOSED_MAP);
 	return (x);

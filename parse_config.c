@@ -6,43 +6,69 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 21:25:55 by dselmy            #+#    #+#             */
-/*   Updated: 2022/04/12 21:28:34 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/04/13 20:21:14 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	check_all_data(t_data *all)
+void	check_all_data(t_data *all) //dont need it anymore
 {
 	int		i;
 
 	i = -1;
-	/*printf("in check all data now\n");*/
-	while (++i <= 8)
+	while (++i <= 6)
 	{
-	//	printf("i = %d data[i] = %d\n", i, all->cnfg->data[i]);
 		if (all->cnfg->data[i] == 0)
 			shut_down(all, ERR_MISSING_CONF_DATA);
 	}
 }
 
-int		check_identifiers(t_config *cnfg, char *line)
+char	*get_identifier(int id_number)
 {
-	if (ft_strncmp(line, "R ", 2) == 0) // not needed anymore
-		return (parse_resolution(line, cnfg, &cnfg->data[RES]));
-	else if (ft_strncmp(line, "NO ", 3) == 0)
+	if (id_number == NO_TEX)
+		return "NO ";
+	else if (id_number == SO_TEX)
+		return "SO ";
+	else if (id_number == WE_TEX)
+		return "WE ";
+	else if (id_number == EA_TEX)
+		return "EA ";
+	else if (id_number == FLOOR_COL)
+		return "F ";
+	else if (id_number == CEIL_COL)
+		return "C ";
+	return "";
+}
+
+int		id_is_valid(char *current_id, char *line)
+{
+	if (ft_strncmp(line, current_id, ft_strlen(current_id)) != 0)
+		return (0);
+	return (1);
+}
+
+int		check_identifiers(int id_number, t_config *cnfg, char *line)
+{
+	if (id_number == MAP)
+		return (1);
+	if (!id_is_valid(get_identifier(id_number), line))
+		return (ERR_UKNOWN_SYM); // err not valid identifier or identifiers is wrong order
+/*	if (ft_strncmp(line, "R ", 2) == 0) // not needed anymore
+		return (parse_resolution(line, cnfg, &cnfg->data[RES]));*/
+	if (id_number == NO_TEX)
 		return (parse_tex_pth(&cnfg->no_tex_path, line, &cnfg->data[NO_TEX]));
-	else if (ft_strncmp(line, "SO ", 3) == 0)
+	else if (id_number == SO_TEX)
 		return (parse_tex_pth(&cnfg->so_tex_path, line, &cnfg->data[SO_TEX]));
-	else if (ft_strncmp(line, "WE ", 3) == 0)
+	else if (id_number == WE_TEX)
 		return (parse_tex_pth(&cnfg->we_tex_path, line, &cnfg->data[WE_TEX]));
-	else if (ft_strncmp(line, "EA ", 3) == 0)
+	else if (id_number == EA_TEX)
 		return (parse_tex_pth(&cnfg->ea_tex_path, line, &cnfg->data[EA_TEX]));
-	else if (ft_strncmp(line, "S ", 2) == 0) // not needed anymore
-		return (parse_tex_pth(&cnfg->spr_tex_path, line, &cnfg->data[SP_TEX]));
-	else if (ft_strncmp(line, "F ", 2) == 0)
+/*	else if (ft_strncmp(line, "S ", 2) == 0) // not needed anymore
+		return (parse_tex_pth(&cnfg->spr_tex_path, line, &cnfg->data[SP_TEX]));*/
+	else if (id_number == FLOOR_COL)
 		return (parse_color(&cnfg->floor_color, line, &cnfg->data[FLOOR_COL]));
-	else if (ft_strncmp(line, "C ", 2) == 0)
+	else if (id_number == CEIL_COL)
 		return (parse_color(&cnfg->ceil_color, line, &cnfg->data[CEIL_COL]));
 	else
 		return (1);
@@ -55,7 +81,7 @@ int		parse_color(int	*color, char *line, int *flag)
 	char	*line_wo_spaces;
 	int		y;
 	
-	if (!set_flag(flag))
+	if (!set_flag(flag)) // dont need it anymore
 		return (ERR_DUPL_DATA);
 	if (!(line_wo_spaces = ft_strtrim(line + 1, " ")))
 		return (ERR_STD);
@@ -79,12 +105,11 @@ int		parse_color(int	*color, char *line, int *flag)
 
 int		parse_tex_pth(char **tex_path, char *line, int *flag)
 {
-	// it should store textures like mlx images; copy from solong
-	if (!set_flag(flag))
+	if (!set_flag(flag)) // dont need it anymore
 		return (ERR_DUPL_DATA);
 	if (!(*tex_path = ft_strtrim(line + 2, " ")))
 		return (ERR_STD);
-	if (!check_file_format(*tex_path, ".bmp")) // not bmp
+	if (!check_file_format(*tex_path, ".bmp") && !check_file_format(*tex_path, ".xpm")) // not bmp
 		return (ERR_TEX_FORMAT);
 	return (0);
 }
@@ -97,7 +122,7 @@ int		parse_resolution(char *line, t_config *cnfg, int *flag)
 	int		num;
 
 	if (!set_flag(flag))
-		return (ERR_DUPL_DATA);
+		return (ERR_DUPL_DATA); //data can't be duplicated 
 	if (!(array = ft_split(line + 1, ' ')))
 		return (ERR_STD);  //protect malloc
 	y = 0;
