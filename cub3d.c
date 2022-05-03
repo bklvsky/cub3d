@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 00:14:57 by dselmy            #+#    #+#             */
-/*   Updated: 2022/04/15 18:29:08 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/04/19 20:27:19 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int     main(int argc, char **argv)
 		shut_down(all, error);
 	check_arg(argc, argv, all);
 	parser(all);
-	printf("%d %d\n", all->map_h, all->map_width);
+	// printf("%d %d\n", all->map_h, all->map_width);
 	cub(all);
 //	shut_down(all, 0);
 		/*3. parse map -> errorccodeall  in case of unfamiliar characters 

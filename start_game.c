@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 15:07:58 by dselmy            #+#    #+#             */
-/*   Updated: 2022/04/13 19:59:46 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/03 15:52:46 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int		put_map(t_win *win, t_config *cnfg, char **map)
 	return (0);
 }
 
+/* for debug purpose
+
 void	print_arr(char **arr)
 {
 	int		y;
@@ -85,6 +87,8 @@ void	print_config(t_config *cnfg, char **map)
 	printf("ea_tex_path = %s\n", cnfg->ea_tex_path);
 	printf("we_tex_path = %s\n", cnfg->we_tex_path);
 }
+
+*/
 
 void	put_square(t_win *win, int x, int y)
 {
@@ -113,19 +117,6 @@ void put_raycast(t_win * win, double dist, int win_x, int color)
 	}
 }
 
-int		get_wall_side(float y, float x, float ray_dir, char **map)
-{
-	if (map[(int)(y / SCALE)][(int)((x - cos(ray_dir) * 0.1) / SCALE)] == '0')
-	{
-		if (cos(ray_dir) > 0)
-			return COLOR_EA;
-		return COLOR_WE;
-	}
-	if (sin(ray_dir) > 0)
-		return COLOR_NO;
-	return COLOR_SO;
-}
-
 int		put_player(t_win *win, t_plr *plr_data, char **map)
 {
 	double	y;
@@ -141,12 +132,14 @@ int		put_player(t_win *win, t_plr *plr_data, char **map)
 	{
 		y = plr_data->plr_pos_y;
 		x = plr_data->plr_pos_x;
+		/*start of my shitty raycast*/
 		while (map[(int)(y / SCALE)][(int)(x / SCALE)] == '0' || map[(int)(y / SCALE)][(int)(x / SCALE)] == '2')
 		{
-			y -= sin(dir_start) / SCALE;
-			x += cos(dir_start) / SCALE;
+			y -= sin(dir_start) / 16; // деление - чтобы были меньше шаги
+			x += cos(dir_start) / 16; // деление - чтобы были меньше шаги
 		}
-		dist = sqrtf((y - plr_data->plr_pos_y) * (y - plr_data->plr_pos_y) + (x - plr_data->plr_pos_x) * (x - plr_data->plr_pos_x)) * sinf(M_PI / 2 - dir_start + plr_data->plr_dir_rad);
+		/*внизу - вычисление расстояние (смысл рейкаста)))*/
+		dist = sqrtf((y - plr_data->plr_pos_y) * (y - plr_data->plr_pos_y) + (x - plr_data->plr_pos_x) * (x - plr_data->plr_pos_x)) * cosf(dir_start - plr_data->plr_dir_rad);
 		put_raycast(win, dist, i, get_wall_side(y, x, dir_start, map));
 		i += 1;
 		dir_start -= M_PI / 3 / win->x_win;
@@ -183,11 +176,11 @@ int		key_handle(int key, t_data *all)
 int		cub(t_data *all)
 {
 	if (start_win(all->win) < 0)
-		return (-1); //error management
-	put_map(all->win, all->cnfg, all->map);
+		return (-1); // error management
+	// put_map(all->win, all->cnfg, all->map);
 	put_player(all->win, all->plr_data, all->map);
-	// raycast(all->map, all->plr_data, all->win);
-	mlx_put_image_to_window(all->win->mlx, all->win->win, all->win->img, 0, 0);
+	//raycast(all->map, all->plr_data, all->win);
+	put_screen(all);
 	mlx_hook(all->win->win, 2, (1L<<0), &key_handle, all);
 	mlx_hook(all->win->win, 17, (1L<<17), stop_game, all);
 	mlx_loop(all->win->mlx);

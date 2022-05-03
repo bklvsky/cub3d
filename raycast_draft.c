@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 23:10:28 by dselmy            #+#    #+#             */
-/*   Updated: 2022/04/10 02:13:47 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/03 14:57:15 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,23 +106,7 @@ void	get_intersect(char **map, double *x, double *y, double dir)
 		// *dist += 1;
 	}
 }
-
-void	get_side_no_so(int *color, double dir)
-{
-	if (sin(dir) > 0)
-		*color = COLOR_SO;
-	else
-		*color = COLOR_NO;
-}
-
-void	get_side_ea_we(int *color, double dir)
-{
-	if (cos(dir) > 0)
-		*color = COLOR_WE;
-	else
-		*color = COLOR_EA;
-}
-
+/*
 int		cast_ray(char **map, t_plr *plr, double dir, int *color)
 {
 	double	x;
@@ -146,13 +130,9 @@ int		cast_ray(char **map, t_plr *plr, double dir, int *color)
 	}
 	get_intersect(map, &x, &y, dir);
 	dist = sqrtf(powf(y - plr->plr_pos_y, 2) + powf(x - plr->plr_pos_x, 2));
-	if (map[(int)y / SCALE][(int)(x - delta_x) / SCALE] == '1')
-		get_side_no_so(color, dir);
-	else
-		get_side_ea_we(color, dir);
 	return (dist);
 }
-
+*/
 /*double	drop_ray(char **map, t_plr *plr, double dir, int *color)
 {
 	double	dist_ver;
@@ -174,7 +154,7 @@ int		cast_ray(char **map, t_plr *plr, double dir, int *color)
 }*/
 
 
-
+/*
 int		raycast(char **map, t_plr *plr, t_win *win)
 {
 	double   ray_start;
@@ -197,4 +177,4 @@ int		raycast(char **map, t_plr *plr, t_win *win)
 		x += 1;
 	}
 	return (0);
-}
+}*/

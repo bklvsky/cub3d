@@ -6,7 +6,7 @@
 #    By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/27 21:46:39 by dselmy            #+#    #+#              #
-#    Updated: 2022/04/13 00:55:16 by dselmy           ###   ########.fr        #
+#    Updated: 2022/05/03 14:53:12 by dselmy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ SRCS =			./cub3d.c \
 				./player_movement.c \
 				./player_rotate.c \
 				./shutdown.c \
-				./utils.c
+				./utils.c \
+				./utils_get_wall.c
 
 MLX_FLAGS =		-lXext -lX11 -lm -lbsd
 CFLAGS =		-Wall -Werror -Wextra

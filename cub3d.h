@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/04/13 19:49:46 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/03 14:52:20 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ typedef struct	s_data
 	char		**map;
 	int			map_h;
 	int			map_width;
-	t_config    *cnfg;
+	t_config	*cnfg;
 	t_plr		*plr_data;
 	t_win		*win;
 }				t_data;
@@ -197,8 +197,10 @@ void	plr_right(char **map, t_plr *plr_data);
 void	plr_rot_right(t_plr *plr_data);
 void	plr_rot_left(t_plr *plr_data);
 
+int	get_wall_side(float y, float x, float ray_dir, char **map);
+
 //DRAFT VERSION
 int		raycast(char **map, t_plr *plr, t_win *win);
-void	put_ray(t_win *win, int w_color, int w_h, int x);
+// void	put_ray(t_win *win, int w_color, int w_h, int x);
 
 #endif
