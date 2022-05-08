@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/03 14:52:20 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/09 01:26:09 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 /* for checking if anything is missing from the scene description file*/
 
 # define SCALE 16
+# define FOV_DEG 60
+# define NUM_BANDS 600
+// # define NUM_ANGLE_SET 720
 
 # define NO_TEX 0
 # define SO_TEX 1
@@ -34,6 +37,8 @@
 # define FLOOR_COL 4
 # define CEIL_COL 5
 # define MAP 6
+
+# define SIZE_DATA 7
 
 # define ERR_STD -14
 # define ERR_ARG_NO_FILE -1
@@ -95,7 +100,7 @@ typedef struct	s_win
 
 typedef struct	s_config
 {
-	int			data[7]; // make it into identifiers order
+	int			data[SIZE_DATA]; // make it into identifiers order
 	int			x_res;
 	int			y_res;
 	int			s_key;
@@ -114,6 +119,8 @@ typedef struct	s_plr
 	double		plr_pos_x;
 	double		plr_pos_y;
 	double		plr_dir_rad;
+	double		correction[NUM_BANDS + 1];
+	// double		angle_set[NUM_ANGLE_SET + 1];
 }				t_plr;
 
 typedef struct	s_data
@@ -200,6 +207,9 @@ void	plr_rot_left(t_plr *plr_data);
 int	get_wall_side(float y, float x, float ray_dir, char **map);
 
 //DRAFT VERSION
+void	get_crossing(char **map, double	angle, double *x, double *y);
+double	get_distance(double x, double y, t_plr *plr_data, double angle);
+void	fill_correction(t_plr **plr_data);
 int		raycast(char **map, t_plr *plr, t_win *win);
 // void	put_ray(t_win *win, int w_color, int w_h, int x);
 

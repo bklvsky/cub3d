@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 15:07:58 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/03 15:52:46 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/09 00:00:56 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		put_map(t_win *win, t_config *cnfg, char **map)
 	int		y;
 	int		x_img;
 	int		y_img;
-	
+
 	y_img = 0;
 	y = 0;
 	while (map[y] && y_img <= cnfg->y_res)
@@ -124,7 +124,7 @@ int		put_player(t_win *win, t_plr *plr_data, char **map)
 	double	dir_start;
 	double	dir_end;
 	double dist;
-	
+
 	dir_start = plr_data->plr_dir_rad + M_PI_2 / 3;
 	dir_end = plr_data->plr_dir_rad - M_PI_2 / 3;
 	int i = 0;
@@ -132,14 +132,8 @@ int		put_player(t_win *win, t_plr *plr_data, char **map)
 	{
 		y = plr_data->plr_pos_y;
 		x = plr_data->plr_pos_x;
-		/*start of my shitty raycast*/
-		while (map[(int)(y / SCALE)][(int)(x / SCALE)] == '0' || map[(int)(y / SCALE)][(int)(x / SCALE)] == '2')
-		{
-			y -= sin(dir_start) / 16; // деление - чтобы были меньше шаги
-			x += cos(dir_start) / 16; // деление - чтобы были меньше шаги
-		}
-		/*внизу - вычисление расстояние (смысл рейкаста)))*/
-		dist = sqrtf((y - plr_data->plr_pos_y) * (y - plr_data->plr_pos_y) + (x - plr_data->plr_pos_x) * (x - plr_data->plr_pos_x)) * cosf(dir_start - plr_data->plr_dir_rad);
+		get_crossing(map, dir_start, &x, &y);
+		dist = get_distance(x, y, plr_data, dir_start);
 		put_raycast(win, dist, i, get_wall_side(y, x, dir_start, map));
 		i += 1;
 		dir_start -= M_PI / 3 / win->x_win;

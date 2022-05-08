@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 01:43:54 by dselmy            #+#    #+#             */
-/*   Updated: 2022/04/13 21:15:43 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/08 23:44:18 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		init_config(t_config **cnfg)
 		return (ERR_STD);
 	else
 	{
-		while (++i <= 9)
+		while (++i < SIZE_DATA)
 			(*cnfg)->data[i] = 0;
 		(*cnfg)->no_tex_path = NULL;
 		(*cnfg)->so_tex_path = NULL;
@@ -46,6 +46,7 @@ int		init_plr(t_plr	**plr_data)
 	(*plr_data)->plr_pos_x = -1;
 	(*plr_data)->plr_pos_y = -1;
 	(*plr_data)->plr_dir_rad = M_PI_2;
+	fill_correction(plr_data);
 	return (0);
 }
 
