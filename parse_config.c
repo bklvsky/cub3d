@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_config.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 21:25:55 by dselmy            #+#    #+#             */
-/*   Updated: 2022/04/13 20:21:14 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/09 18:00:39 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	check_all_data(t_data *all) //dont need it anymore
 	int		i;
 
 	i = -1;
-	while (++i <= 6)
+	while (++i < SIZE_DATA)
 	{
 		if (all->cnfg->data[i] == 0)
 			shut_down(all, ERR_MISSING_CONF_DATA);
@@ -80,7 +80,7 @@ int		parse_color(int	*color, char *line, int *flag)
 	int		rgb_arr[3];
 	char	*line_wo_spaces;
 	int		y;
-	
+
 	if (!set_flag(flag)) // dont need it anymore
 		return (ERR_DUPL_DATA);
 	if (!(line_wo_spaces = ft_strtrim(line + 1, " ")))
@@ -122,7 +122,7 @@ int		parse_resolution(char *line, t_config *cnfg, int *flag)
 	int		num;
 
 	if (!set_flag(flag))
-		return (ERR_DUPL_DATA); //data can't be duplicated 
+		return (ERR_DUPL_DATA); //data can't be duplicated
 	if (!(array = ft_split(line + 1, ' ')))
 		return (ERR_STD);  //protect malloc
 	y = 0;
@@ -139,7 +139,7 @@ int		parse_resolution(char *line, t_config *cnfg, int *flag)
 			else if (y == 1)
 				cnfg->y_res = num;
 		}
-		y += 1;          
+		y += 1;
 	}
 	free_arr(array);
 	return (0);

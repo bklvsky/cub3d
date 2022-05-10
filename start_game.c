@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 15:07:58 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/09 00:00:56 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/10 14:58:59 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,35 +108,34 @@ void	put_square(t_win *win, int x, int y)
 	}
 }
 
-void put_raycast(t_win * win, double dist, int win_x, int color)
+static void put_raycast(t_win * win, t_crs crs, int win_x, int color)
 {
+	double	wall_height;
+
 	if (win_x < win->x_win)
 	{
-		double wall_height = win->y_win * 16 / dist;
+		wall_height = win->y_win * SCALE / crs.dist;
 		put_ray(win, color, round(wall_height), win_x);
 	}
 }
 
 int		put_player(t_win *win, t_plr *plr_data, char **map)
 {
-	double	y;
-	double	x;
-	double	dir_start;
-	double	dir_end;
-	double dist;
+	double	angle;
+	int		i;
+	int		clr;
 
-	dir_start = plr_data->plr_dir_rad + M_PI_2 / 3;
-	dir_end = plr_data->plr_dir_rad - M_PI_2 / 3;
-	int i = 0;
-	while (dir_start >= dir_end)
+	i = 0;
+	angle = plr_data->plr_dir_rad + M_PI_2 / 3;
+	while (angle >= plr_data->plr_dir_rad - M_PI_2 / 3)
 	{
-		y = plr_data->plr_pos_y;
-		x = plr_data->plr_pos_x;
-		get_crossing(map, dir_start, &x, &y);
-		dist = get_distance(x, y, plr_data, dir_start);
-		put_raycast(win, dist, i, get_wall_side(y, x, dir_start, map));
+		init_cross(plr_data, angle);
+		get_crossing(map, plr_data);
+		get_distance(plr_data);
+		clr = get_wall_side(plr_data->cross.y, plr_data->cross.x, angle, map);
+		put_raycast(win, plr_data->cross, i, clr);
 		i += 1;
-		dir_start -= M_PI / 3 / win->x_win;
+		angle -= M_PI / 3 / win->x_win;
 	}
 	return (0);
 }
