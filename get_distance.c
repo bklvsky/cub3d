@@ -6,20 +6,20 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 18:32:16 by hashly            #+#    #+#             */
-/*   Updated: 2022/05/11 00:38:55 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/11 15:14:09 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	wall(char **map, double *x0, double *y0)
+char	wall(char **map, t_plr *data, double *x0, double *y0)
 {
 	int	x;
 	int	y;
 
-	x = *x0 / SCALE_D;
-	y = *y0 / SCALE_D;
-	if (x < 0 || y < 0 || x > 32 || y > 13)
+	x = *x0 / SCALE;
+	y = *y0 / SCALE;
+	if (x < 0 || y < 0 || x > data->x_win - 1 || y > data->y_win - 1)
 	{
 		*x0 = INIT_CROSS;
 		*y0 = INIT_CROSS;

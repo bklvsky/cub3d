@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 15:07:58 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/11 00:10:12 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/11 15:12:27 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int		start_win(t_win *win)
 	if (!win->mlx)
 		return (-1);
 	mlx_get_screen_size(win->mlx, &(win->x_win), &(win->y_win));
+	win->x_win /= 2.;
 	win->img = mlx_new_image(win->mlx, win->x_win, win->y_win);
 	if (!win->img)
 		return (-1);
@@ -172,8 +173,10 @@ int		cub(t_data *all)
 	if (start_win(all->win) < 0)
 		return (-1); // error management
 	// put_map(all->win, all->cnfg, all->map);
+	all->plr_data->x_win = all->map_width;
+	all->plr_data->y_win = all->map_h;
 	put_player(all->win, all->plr_data, all->map);
-	//raycast(all->map, all->plr_data, all->win);
+	// raycast(all->map, all->plr_data, all->win);
 	put_screen(all);
 	mlx_hook(all->win->win, 2, (1L<<0), &key_handle, all);
 	mlx_hook(all->win->win, 17, (1L<<17), stop_game, all);
