@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+         #
+#    By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/27 21:46:39 by dselmy            #+#    #+#              #
-#    Updated: 2022/05/03 14:53:12 by dselmy           ###   ########.fr        #
+#    Updated: 2022/05/11 15:55:39 by hashly           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,10 +34,12 @@ SRCS =			./cub3d.c \
 				./player_rotate.c \
 				./shutdown.c \
 				./utils.c \
-				./utils_get_wall.c
+				./utils_get_wall.c \
+				./get_distance.c \
+				./get_crossing.c
 
 MLX_FLAGS =		-lXext -lX11 -lm -lbsd
-CFLAGS =		-Wall -Werror -Wextra
+CFLAGS =		-Wall -Werror -Wextra -O3
 
 OBJ = $(SRCS:.c=.o)
 DEP = $(SRCS:.c=.d)

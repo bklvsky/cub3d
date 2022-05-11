@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/03 14:52:20 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/11 15:57:00 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@
 /* for checking if anything is missing from the scene description file*/
 
 # define SCALE 16
+# define START_STEP 1.
+# define FINISH_STEP 0.03
+# define FOV_DEG 60
+# define NUM_BANDS 720
+# define V_CROSS 1
+# define H_CROSS 2
+// # define NUM_ANGLE_SET 360
 
 # define NO_TEX 0
 # define SO_TEX 1
@@ -34,6 +41,8 @@
 # define FLOOR_COL 4
 # define CEIL_COL 5
 # define MAP 6
+
+# define SIZE_DATA 7
 
 # define ERR_STD -14
 # define ERR_ARG_NO_FILE -1
@@ -95,7 +104,7 @@ typedef struct	s_win
 
 typedef struct	s_config
 {
-	int			data[7]; // make it into identifiers order
+	int			data[SIZE_DATA]; // make it into identifiers order
 	int			x_res;
 	int			y_res;
 	int			s_key;
@@ -108,12 +117,28 @@ typedef struct	s_config
 	int			floor_color;
 }				t_config;
 
+typedef struct	s_crs
+{
+	double		angle;
+	double		sin_angle;
+	double		cos_angle;
+	double		x;
+	double		y;
+	double		dist;
+	char		type_cross; //1 - V_CROSS; 2 - H_CROSS
+}				t_crs;
+
 typedef struct	s_plr
 {
 	int			plr_num;
 	double		plr_pos_x;
 	double		plr_pos_y;
 	double		plr_dir_rad;
+	double		correction[NUM_BANDS + 1];
+	int			x_win;
+	int			y_win;
+	t_crs		cross;
+	// double		angle_set_sin[NUM_ANGLE_SET + 1];
 }				t_plr;
 
 typedef struct	s_data
@@ -130,6 +155,7 @@ typedef struct	s_data
 int		init_struct(t_data *all);
 int		init_config(t_config **cnfg);
 int		init_plr(t_plr	**plr_data);
+void	init_cross(t_plr *plr, double angle);
 
 void	check_arg(int argc, char **argv, t_data *all);
 int		check_file_format(char *file_name, char *format);
@@ -200,7 +226,11 @@ void	plr_rot_left(t_plr *plr_data);
 int	get_wall_side(float y, float x, float ray_dir, char **map);
 
 //DRAFT VERSION
-int		raycast(char **map, t_plr *plr, t_win *win);
+void	get_crossing(char **map, t_plr *data);
+void	get_distance(t_plr *plr_data);
+char	wall(char **map, t_plr *data, double *x0, double *y0);
+void	fill_correction(t_plr **plr_data);
+// int		raycast(char **map, t_plr *plr, t_win *win);
 // void	put_ray(t_win *win, int w_color, int w_h, int x);
 
 #endif
