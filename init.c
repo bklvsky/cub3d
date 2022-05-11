@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 01:43:54 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/11 15:43:58 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/11 15:57:04 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	init_cross(t_plr *plr, double angle)
 	plr->cross.angle = angle;
 	plr->cross.sin_angle = sin(angle);
 	plr->cross.cos_angle = cos(angle);
-	plr->cross.tan_angle = tan(angle);
 	plr->cross.x = plr->plr_pos_x;
 	plr->cross.y = plr->plr_pos_y;
 	plr->cross.dist = -1;

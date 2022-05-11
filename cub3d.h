@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/11 15:51:43 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/11 15:57:00 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ typedef struct	s_crs
 	double		angle;
 	double		sin_angle;
 	double		cos_angle;
-	double		tan_angle;
 	double		x;
 	double		y;
 	double		dist;
