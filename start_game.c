@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 15:07:58 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/10 14:58:59 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/11 15:53:34 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ int		put_player(t_win *win, t_plr *plr_data, char **map)
 		init_cross(plr_data, angle);
 		get_crossing(map, plr_data);
 		get_distance(plr_data);
+		// printf("\tDIST = %f\n\n", plr_data->cross.dist);
 		clr = get_wall_side(plr_data->cross.y, plr_data->cross.x, angle, map);
 		put_raycast(win, plr_data->cross, i, clr);
 		i += 1;
@@ -171,8 +172,10 @@ int		cub(t_data *all)
 	if (start_win(all->win) < 0)
 		return (-1); // error management
 	// put_map(all->win, all->cnfg, all->map);
+	all->plr_data->x_win = all->map_width;
+	all->plr_data->y_win = all->map_h;
 	put_player(all->win, all->plr_data, all->map);
-	//raycast(all->map, all->plr_data, all->win);
+	// raycast(all->map, all->plr_data, all->win);
 	put_screen(all);
 	mlx_hook(all->win->win, 2, (1L<<0), &key_handle, all);
 	mlx_hook(all->win->win, 17, (1L<<17), stop_game, all);
