@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 01:43:54 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/11 13:58:45 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/11 15:43:58 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,4 @@ void	init_cross(t_plr *plr, double angle)
 	plr->cross.y = plr->plr_pos_y;
 	plr->cross.dist = -1;
 	plr->cross.type_cross = 0;
-	plr->cross.h_cross_x = INIT_CROSS;
-	plr->cross.h_cross_y = INIT_CROSS;
-	plr->cross.v_cross_x = INIT_CROSS;
-	plr->cross.v_cross_y = INIT_CROSS;
-	// plr->cross.mode = find_mode(&data);
 }

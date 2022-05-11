@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 15:07:58 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/11 15:12:27 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/11 15:53:34 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int		start_win(t_win *win)
 	if (!win->mlx)
 		return (-1);
 	mlx_get_screen_size(win->mlx, &(win->x_win), &(win->y_win));
-	win->x_win /= 2.;
 	win->img = mlx_new_image(win->mlx, win->x_win, win->y_win);
 	if (!win->img)
 		return (-1);

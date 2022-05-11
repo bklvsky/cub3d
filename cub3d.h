@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/11 15:40:00 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/11 15:51:43 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # define SCALE 16
 # define START_STEP 1.
 # define FINISH_STEP 0.03
-# define INIT_CROSS -1000.
 # define FOV_DEG 60
 # define NUM_BANDS 720
 # define V_CROSS 1
@@ -127,13 +126,7 @@ typedef struct	s_crs
 	double		x;
 	double		y;
 	double		dist;
-	char		type_cross; //1 - vertic; 2 - horiz
-	double		h_cross_x;
-	double		h_cross_y;
-	double		v_cross_x;
-	double		v_cross_y;
-	double		len_x;
-	double		len_y;
+	char		type_cross; //1 - V_CROSS; 2 - H_CROSS
 }				t_crs;
 
 typedef struct	s_plr
@@ -235,13 +228,10 @@ int	get_wall_side(float y, float x, float ray_dir, char **map);
 
 //DRAFT VERSION
 void	get_crossing(char **map, t_plr *data);
-void	find_horiz_cross_wall(char **map, t_plr *data);
-void	find_vertic_cross_wall(char **map, t_plr *data);
 void	get_distance(t_plr *plr_data);
-// char	find_mode(t_crs *data);
 char	wall(char **map, t_plr *data, double *x0, double *y0);
 void	fill_correction(t_plr **plr_data);
-int		raycast(char **map, t_plr *plr, t_win *win);
+// int		raycast(char **map, t_plr *plr, t_win *win);
 // void	put_ray(t_win *win, int w_color, int w_h, int x);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/27 21:46:39 by dselmy            #+#    #+#              #
-#    Updated: 2022/05/10 20:36:43 by hashly           ###   ########.fr        #
+#    Updated: 2022/05/11 15:44:14 by hashly           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,9 +36,7 @@ SRCS =			./cub3d.c \
 				./utils.c \
 				./utils_get_wall.c \
 				./get_distance.c \
-				./get_crossing.c \
-				./horizontal_crossing.c \
-				./vertical_crossing.c
+				./get_crossing.c
 
 MLX_FLAGS =		-lXext -lX11 -lm -lbsd
 CFLAGS =		-Wall -Werror -Wextra -O3 -g
