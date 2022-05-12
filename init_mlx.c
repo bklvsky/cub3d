@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_texture.c                                      :+:      :+:    :+:   */
+/*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/12 21:40:23 by dselmy            #+#    #+#             */
-/*   Updated: 2022/04/13 19:59:55 by dselmy           ###   ########.fr       */
+/*   Created: 2022/05/11 23:18:29 by dselmy            #+#    #+#             */
+/*   Updated: 2022/05/11 23:18:59 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,37 @@ static int	get_tex_img(void *mlx, char *path, t_img *tex)
 	return (1);
 }
 
-int	get_texture(t_win *win, t_config *cnfg)
+static int	get_texture(t_win *win, t_config *cnfg)
 {
-	if (get_tex_img(win->mlx, cnfg->no_tex_path, &(win->no_tex)) | \
-			get_tex_img(win->mlx, cnfg->so_tex_path, &(win->so_tex)) | \
-			get_tex_img(win->mlx, cnfg->we_tex_path, &(win->we_tex)) | \
-			get_tex_img(win->mlx, cnfg->ea_tex_path, &(win->ea_tex)))
+	int		i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (!get_tex_img(win->mlx, cnfg->tex_paths[i], &(win->textures[i])))
+			return (-1);
+		i += 1;
+	}
+	return (0);
+}
+
+int		start_win(t_win *win, t_config *cnfg)
+{
+	win->mlx = mlx_init();
+	if (!win->mlx)
+		return (-1);
+	mlx_get_screen_size(win->mlx, &(win->x_win), &(win->y_win));
+	win->img = mlx_new_image(win->mlx, win->x_win, win->y_win);
+	if (!win->img)
+		return (-1);
+	win->addr = mlx_get_data_addr(win->img, &(win->bpp), \
+								&(win->line_len), &(win->en));
+	if (!win->addr)
+		return (-1);
+	win->win = mlx_new_window(win->mlx, win->x_win, win->y_win, "cub3d");
+	if (!win->win)
+		return (-1);
+	if (get_texture(win, cnfg) < 0)
 		return (-1);
 	return (0);
 }

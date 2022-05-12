@@ -6,24 +6,11 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 21:25:18 by dselmy            #+#    #+#             */
-/*   Updated: 2022/04/15 18:39:55 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/11 23:43:39 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-// void	print_array(char **arr, int h)
-// {
-// 	int		y;
-	
-// 	printf("printing all the map here h = %d\n", h);
-// 	y = 0;
-// 	while (y <= h)
-// 	{
-// 		printf("%d %s\n", y, arr[y]);
-// 		y += 1;
-// 	}
-// }
 
 int		make_map_arr(t_data *all, t_list **map_ptr, int map_h)
 {
@@ -31,33 +18,18 @@ int		make_map_arr(t_data *all, t_list **map_ptr, int map_h)
 
 	i = -1;
 	all->map = (char **)malloc(sizeof(char *) * (map_h + 1));
-//	printf("we're in make map arr\n");
 	if (!all->map)
 		return (ERR_STD);
 	while (*map_ptr && ++i < map_h)
 	{
-//		printf("i = %d, map->content = %s\n", i, (char *)(*map_ptr)->content);
 		all->map[i] = ft_strdup((char *)(*map_ptr)->content);
 		if (!all->map[i])
 			return (ERR_STD);
 		*map_ptr = (*map_ptr)->next;
 	}
 	all->map[map_h] = NULL;
-//	print_array(all->map, map_h);
 	return (0);
 }
-
-// void	print_lst(t_list *head)
-// {
-// 	t_list	*tmp;
-
-// 	tmp = head;
-// 	while (tmp)
-// 	{
-// 		printf("%s\n", (char *)tmp->content);
-// 		tmp = tmp->next;
-// 	}
-// }
 
 int		read_config(int fd, t_list **head)
 {
@@ -79,8 +51,6 @@ int		read_config(int fd, t_list **head)
 		if (!new)
 			return (ERR_STD);
 	ft_lstadd_back(head, new);
-//	printf("printing list:\n");
-//	print_lst(*head);
 	return (0);
 }
 

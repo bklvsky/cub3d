@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_config.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 21:25:55 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/09 18:00:39 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/11 23:45:27 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,22 +54,18 @@ int		check_identifiers(int id_number, t_config *cnfg, char *line)
 		return (1);
 	if (!id_is_valid(get_identifier(id_number), line))
 		return (ERR_UKNOWN_SYM); // err not valid identifier or identifiers is wrong order
-/*	if (ft_strncmp(line, "R ", 2) == 0) // not needed anymore
-		return (parse_resolution(line, cnfg, &cnfg->data[RES]));*/
 	if (id_number == NO_TEX)
-		return (parse_tex_pth(&cnfg->no_tex_path, line, &cnfg->data[NO_TEX]));
+		return (parse_tex_pth(&cnfg->tex_paths[NO_TEX], line, &cnfg->data[NO_TEX]));
 	else if (id_number == SO_TEX)
-		return (parse_tex_pth(&cnfg->so_tex_path, line, &cnfg->data[SO_TEX]));
+		return (parse_tex_pth(&cnfg->tex_paths[SO_TEX], line, &cnfg->data[SO_TEX]));
 	else if (id_number == WE_TEX)
-		return (parse_tex_pth(&cnfg->we_tex_path, line, &cnfg->data[WE_TEX]));
+		return (parse_tex_pth(&cnfg->tex_paths[WE_TEX], line, &cnfg->data[WE_TEX]));
 	else if (id_number == EA_TEX)
-		return (parse_tex_pth(&cnfg->ea_tex_path, line, &cnfg->data[EA_TEX]));
-/*	else if (ft_strncmp(line, "S ", 2) == 0) // not needed anymore
-		return (parse_tex_pth(&cnfg->spr_tex_path, line, &cnfg->data[SP_TEX]));*/
+		return (parse_tex_pth(&cnfg->tex_paths[EA_TEX], line, &cnfg->data[EA_TEX]));
 	else if (id_number == FLOOR_COL)
-		return (parse_color(&cnfg->floor_color, line, &cnfg->data[FLOOR_COL]));
+		return (parse_color(cnfg->floor_color, line, &cnfg->data[FLOOR_COL]));
 	else if (id_number == CEIL_COL)
-		return (parse_color(&cnfg->ceil_color, line, &cnfg->data[CEIL_COL]));
+		return (parse_color(cnfg->ceil_color, line, &cnfg->data[CEIL_COL]));
 	else
 		return (1);
 }
@@ -114,33 +110,3 @@ int		parse_tex_pth(char **tex_path, char *line, int *flag)
 	return (0);
 }
 
-// not needed anymore; make it get resolution from screen size
-int		parse_resolution(char *line, t_config *cnfg, int *flag)
-{
-	char	**array;
-	int		y;
-	int		num;
-
-	if (!set_flag(flag))
-		return (ERR_DUPL_DATA); //data can't be duplicated
-	if (!(array = ft_split(line + 1, ' ')))
-		return (ERR_STD);  //protect malloc
-	y = 0;
-	while (array[y])
-	{
-		if (!only_num(array[y]) || y > 1)
-			return(parse_res_end(array, ERR_RESOLUTION));
-		else
-			num = ft_atoi(array[y]);
-		if (num > 0 && num <= 3000)   //get screen size later
-		{
-			if (y == 0)
-				cnfg->x_res = num;
-			else if (y == 1)
-				cnfg->y_res = num;
-		}
-		y += 1;
-	}
-	free_arr(array);
-	return (0);
-}

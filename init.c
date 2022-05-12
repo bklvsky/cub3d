@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 01:43:54 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/11 15:57:04 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/11 23:46:35 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,17 @@
 
 int		init_win(t_win **win)
 {
-	if (!(*win = (t_win *)malloc(sizeof(t_win))))
+	*win = ft_calloc(1, sizeof(t_win));
+	if (!(*win))
 		return (ERR_STD);
 	return (0);
 }
 
 int		init_config(t_config **cnfg)
 {
-	int		i;
-
-	i = -1;
-	if (!(*cnfg = (t_config *)malloc(sizeof(t_config))))
+	*cnfg = ft_calloc(1, sizeof(t_config));
+	if (!(*cnfg))
 		return (ERR_STD);
-	else
-	{
-		while (++i < SIZE_DATA)
-			(*cnfg)->data[i] = 0;
-		(*cnfg)->no_tex_path = NULL;
-		(*cnfg)->so_tex_path = NULL;
-		(*cnfg)->ea_tex_path = NULL;
-		(*cnfg)->we_tex_path = NULL;
-	}
 	return (0);
 }
 
@@ -54,15 +44,16 @@ int		init_struct(t_data *all)
 {
 	int		error;
 
-//	printf("init struct\n");
 	error = 0;
 	all->fd = -1;
 	all->map = NULL;
+	if ((error = init_win(&(all->win))) != 0)
+		return (error);
 	if ((error = init_config(&(all->cnfg))) != 0)
 		return (error);
+	all->cnfg->ceil_color = &(all->win->ceil_color);
+	all->cnfg->floor_color = &(all->win->floor_color);
 	if ((error = init_plr(&(all->plr_data))) != 0)
-		return (error);
-	if ((error = init_win(&(all->win))) != 0)
 		return (error);
 	return (error);
 }

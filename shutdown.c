@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shutdown.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 02:12:40 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/08 23:50:02 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/11 23:26:18 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,15 @@
 
 int		stop_game(t_data *all)
 {
-//	mlx_destroy_image(all->win->mlx, all->win->img);
-//	mlx_destroy_window(all->win->mlx, all->win->win);
+	int		i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (all->win->textures + i != NULL)
+			mlx_destroy_image(all->win->mlx, all->win->textures[i].img);
+		i += 1;
+	}
 	mlx_destroy_image(all->win->mlx, all->win->img);
 	mlx_destroy_window(all->win->mlx, all->win->win);
 	shut_down(all, 0);
@@ -37,10 +44,14 @@ void	free_win(t_data *all)
 
 void	free_config(t_data *all)
 {
-	free(all->cnfg->ea_tex_path);
-	free(all->cnfg->we_tex_path);
-	free(all->cnfg->no_tex_path);
-	free(all->cnfg->so_tex_path);
+	int		i;
+
+	i = 0;
+	while (i < 4)
+	{
+		free(all->cnfg->tex_paths[i]);
+		i += 1;
+	}
 	free(all->cnfg);
 	all->cnfg = NULL;
 }

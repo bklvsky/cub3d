@@ -3,65 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   start_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 15:07:58 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/11 15:53:34 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/12 04:55:19 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int		start_win(t_win *win)
-{
-	win->mlx = mlx_init();
-	if (!win->mlx)
-		return (-1);
-	mlx_get_screen_size(win->mlx, &(win->x_win), &(win->y_win));
-	win->img = mlx_new_image(win->mlx, win->x_win, win->y_win);
-	if (!win->img)
-		return (-1);
-	win->addr = mlx_get_data_addr(win->img, &(win->bpp), \
-								&(win->line_len), &(win->en));
-	if (!win->addr)
-		return (-1);
-	win->win = mlx_new_window(win->mlx, win->x_win, win->y_win, "cub3d");
-	if (!win->win)
-		return (-1);
-	// if (get_texture(win, cnfg) < 0) uncomment when the textures are ready
-	// 	return (-1);
-	return (0);
-}
-
-int		put_map(t_win *win, t_config *cnfg, char **map)
-{
-	int		x;
-	int		y;
-	int		x_img;
-	int		y_img;
-
-	y_img = 0;
-	y = 0;
-	while (map[y] && y_img <= cnfg->y_res)
-	{
-		x = 0;
-		x_img = 0;
-		while (map[y][x] && x_img <= cnfg->x_res)
-		{
-			if (map[y][x] == '1')
-				my_pixel_put(win, x_img, y_img, 0x001100FF);
-			else
-				my_pixel_put(win, x_img, y_img, 0x000000);
-			x_img += 1;
-			if ((x_img % SCALE) == 0)
-				x += 1;
-		}
-		y_img += 1;
-		if ((y_img % SCALE) == 0)
-			y += 1;
-	}
-	return (0);
-}
 
 /* for debug purpose
 
@@ -90,92 +39,13 @@ void	print_config(t_config *cnfg, char **map)
 
 */
 
-void	put_square(t_win *win, int x, int y)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	while (i < SCALE)
-	{
-		j = 0;
-		while(j < SCALE)
-		{
-			my_pixel_put(win, x + j, y + i, 0x00FF0000);
-			j += 1;
-		}
-		i += 1;
-	}
-}
-
-static void put_raycast(t_win * win, t_crs crs, int win_x, int color)
-{
-	double	wall_height;
-
-	if (win_x < win->x_win)
-	{
-		wall_height = win->y_win * SCALE / crs.dist;
-		put_ray(win, color, round(wall_height), win_x);
-	}
-}
-
-int		put_player(t_win *win, t_plr *plr_data, char **map)
-{
-	double	angle;
-	int		i;
-	int		clr;
-
-	i = 0;
-	angle = plr_data->plr_dir_rad + M_PI_2 / 3;
-	while (angle >= plr_data->plr_dir_rad - M_PI_2 / 3)
-	{
-		init_cross(plr_data, angle);
-		get_crossing(map, plr_data);
-		get_distance(plr_data);
-		// printf("\tDIST = %f\n\n", plr_data->cross.dist);
-		clr = get_wall_side(plr_data->cross.y, plr_data->cross.x, angle, map);
-		put_raycast(win, plr_data->cross, i, clr);
-		i += 1;
-		angle -= M_PI / 3 / win->x_win;
-	}
-	return (0);
-}
-
-void	put_screen(t_data *all)
-{
-	mlx_do_sync(all->win->mlx);
-	put_map(all->win, all->cnfg, all->map);
-	put_player(all->win, all->plr_data, all->map);
-	mlx_put_image_to_window(all->win->mlx, all->win->win, all->win->img, 0, 0);
-}
-
-int		key_handle(int key, t_data *all)
-{
-	if (key == 119 || key == 65362)
-		plr_up(all->map, all->plr_data);
-	if (key == 115 || key == 65364)
-		plr_down(all->map, all->plr_data);
-	if (key == 97)
-		plr_left(all->map, all->plr_data);
-	if (key == 100)
-		plr_right(all->map, all->plr_data);
-	if (key == 65361)
-		plr_rot_left(all->plr_data);
-	if (key == 65363)
-		plr_rot_right(all->plr_data);
-	put_screen(all);
-	return(0);
-}
-
 int		cub(t_data *all)
 {
-	if (start_win(all->win) < 0)
+	if (start_win(all->win, all->cnfg) < 0)
 		return (-1); // error management
 	// put_map(all->win, all->cnfg, all->map);
 	all->plr_data->x_win = all->map_width;
 	all->plr_data->y_win = all->map_h;
-	put_player(all->win, all->plr_data, all->map);
-	// raycast(all->map, all->plr_data, all->win);
 	put_screen(all);
 	mlx_hook(all->win->win, 2, (1L<<0), &key_handle, all);
 	mlx_hook(all->win->win, 17, (1L<<17), stop_game, all);

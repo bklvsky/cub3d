@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+         #
+#    By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/27 21:46:39 by dselmy            #+#    #+#              #
-#    Updated: 2022/05/11 15:55:39 by hashly           ###   ########.fr        #
+#    Updated: 2022/05/11 23:36:05 by dselmy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,22 +19,24 @@ MLX_DIR =			./mlx_linux/
 LIBFT_DIR =			./libft/
 
 SRCS =			./cub3d.c \
-				./draw.c \
-				./get_texture.c \
+				./init_mlx.c \
 				./init.c \
+				./key_handle.c \
 				./parse_end.c \
 				./parser_map.c \
 				./raycast_draft.c \
 				./start_game.c \
-				./game_utils.c \
 				./parse_config.c \
 				./parser_base.c \
 				./parser_map_utils.c \
 				./player_movement.c \
 				./player_rotate.c \
+				./put_ray.c \
+				./put_screen.c \
 				./shutdown.c \
 				./utils.c \
 				./utils_get_wall.c \
+				./utils_mlx.c \
 				./get_distance.c \
 				./get_crossing.c
 

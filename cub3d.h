@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/11 15:57:00 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/12 04:47:50 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 /* for checking if anything is missing from the scene description file*/
 
-# define SCALE 16
+# define SCALE 64
 # define START_STEP 1.
 # define FINISH_STEP 0.03
 # define FOV_DEG 60
@@ -63,14 +63,15 @@
 
 # define GET_PLR_Y -2
 
-
-//delete later
-# define WALL_EA_WE 0x7E1A35
-# define WALL_SO_NO 0x9F2042
-# define COLOR_NO 0x000000FF
-# define COLOR_SO 0x00FF0000
-# define COLOR_EA 0x0000FF00
-# define COLOR_WE 0x00FFFF00
+# define KEY_A 1734
+# define KEY_W 1731
+# define KEY_D 1751
+# define KEY_S 1753
+# define KEY_UP 65362
+# define KEY_DOWN 65364
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
+# define KEY_ESC 65307
 
 typedef struct s_img
 {
@@ -81,6 +82,7 @@ typedef struct s_img
 	int			en;
 	int			height;
 	int			width;
+	int			x;
 }				t_img;
 
 typedef struct	s_win
@@ -95,11 +97,9 @@ typedef struct	s_win
 	int			en;
 	int			x_win;
 	int			y_win;
-	t_img		no_tex;
-	t_img		so_tex;
-	t_img		ea_tex;
-	t_img		we_tex;
-	t_img		spr_tex;
+	t_img		textures[4];
+	int			floor_color;
+	int			ceil_color;
 }				t_win;
 
 typedef struct	s_config
@@ -108,13 +108,10 @@ typedef struct	s_config
 	int			x_res;
 	int			y_res;
 	int			s_key;
-	char		*no_tex_path;
-	char		*so_tex_path;
-	char		*ea_tex_path;
-	char		*we_tex_path;
+	char		*tex_paths[4];
 	// char		*spr_tex_path; for bonus
-	int			ceil_color;
-	int			floor_color;
+	int			*ceil_color;
+	int			*floor_color;
 }				t_config;
 
 typedef struct	s_crs
@@ -125,7 +122,8 @@ typedef struct	s_crs
 	double		x;
 	double		y;
 	double		dist;
-	char		type_cross; //1 - V_CROSS; 2 - H_CROSS
+	char		type_cross; //1 - V_CROSS; 2 - H_CROSS not needed anymore
+	int			side;
 }				t_crs;
 
 typedef struct	s_plr
@@ -180,12 +178,10 @@ void	parser(t_data *all);
 int		check_identifiers(int id_number, t_config *cnfg, char *line);
 int		parse_color(int	*color, char *line, int *flag);
 int		parse_tex_pth(char **tex_path, char *line, int *flag);
-int		parse_resolution(char *line, t_config *cnfg, int *flag);
 void	check_all_data(t_data *all);
 char	*get_identifier(int id_number);
 
 int		parse_color_end(char **array, char *line_wo_spaces, int error);
-int		parse_res_end(char **array, int error);
 
 /*map parsing utils*/
 
@@ -210,10 +206,13 @@ int		cub(t_data *all);
 int		stop_game(t_data *all);
 
 /*get texture*/
-int		get_texture(t_win *win, t_config *cnfg);
+int		start_win(t_win *win, t_config *cnfg);
 
 /*draw*/
-void	put_ray(t_win *win, int w_color, int w_h, int x);
+void	put_ray(t_win *win, t_crs crs, int w_h, int x);
+void	put_screen(t_data *all);
+
+int		key_handle(int key, t_data *all);
 
 /*player movement*/
 void	plr_up(char **map, t_plr *plr_data);
@@ -223,7 +222,7 @@ void	plr_right(char **map, t_plr *plr_data);
 void	plr_rot_right(t_plr *plr_data);
 void	plr_rot_left(t_plr *plr_data);
 
-int	get_wall_side(float y, float x, float ray_dir, char **map);
+int		get_wall_side(float y, float x, float ray_dir, char **map);
 
 //DRAFT VERSION
 void	get_crossing(char **map, t_plr *data);
