@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/12 04:47:50 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/12 17:03:44 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 /* for checking if anything is missing from the scene description file*/
 
 # define SCALE 64
-# define START_STEP 1.
-# define FINISH_STEP 0.03
+# define START_STEP 0.25
+# define FINISH_STEP 0.01
 # define FOV_DEG 60
 # define NUM_BANDS 720
 # define V_CROSS 1
@@ -63,10 +63,17 @@
 
 # define GET_PLR_Y -2
 
+# ifndef linux
+# define KEY_A 97
+# define KEY_W 119
+# define KEY_D 100
+# define KEY_S 115
+#else
 # define KEY_A 1734
 # define KEY_W 1731
 # define KEY_D 1751
 # define KEY_S 1753
+# endif
 # define KEY_UP 65362
 # define KEY_DOWN 65364
 # define KEY_LEFT 65361
@@ -100,6 +107,7 @@ typedef struct	s_win
 	t_img		textures[4];
 	int			floor_color;
 	int			ceil_color;
+	double		prop;
 }				t_win;
 
 typedef struct	s_config

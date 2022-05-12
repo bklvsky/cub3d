@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 18:32:16 by hashly            #+#    #+#             */
-/*   Updated: 2022/05/11 15:46:28 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/12 16:51:03 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	wall(char **map, t_plr *data, double *x0, double *y0)
 	y = *y0 / SCALE;
 	if (x < 0 || y < 0 || x > data->x_win - 1 || y > data->y_win - 1)
 		return (1);
-	if (map[y][x] != '0' && map[y][x] != '2')
+	if (map[y][x] != '1')
 		return (1);
 	return (0);
 }

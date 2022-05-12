@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   put_screen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:34:47 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/12 05:10:05 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/12 17:00:04 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void put_raycast(t_win * win, t_crs crs, int win_x)
 
 	if (win_x < win->x_win)
 	{
-		wall_height = win->y_win * SCALE / crs.dist * 1.3;
+		wall_height = win->y_win * SCALE / crs.dist * win->prop;
 		put_ray(win, crs, round(wall_height), win_x);
 	}
 }
@@ -35,7 +35,6 @@ static int	put_player(t_win *win, t_plr *plr_data, char **map)
 		init_cross(plr_data, angle);
 		get_crossing(map, plr_data);
 		get_distance(plr_data);
-		// printf("\tDIST = %f\n\n", plr_data->cross.dist);
 		plr_data->cross.side = get_wall_side(plr_data->cross.y, plr_data->cross.x, angle, map);
 		put_raycast(win, plr_data->cross, i);
 		i += 1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 15:07:58 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/12 04:55:19 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/12 17:05:06 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,24 @@ void	print_config(t_config *cnfg, char **map)
 
 */
 
+// static int	mouse_hook(int x, int y, void *param)
+// {
+// 	t_data	*all;
+// 	int		x_new;
+
+// 	all = param;
+// 	x_new = all->win->x_win / 2;
+// 	mlx_mouse_move(all->win->mlx, all->win->win, x_new, y);
+// 	if (x > x_new)
+// 		plr_rot_right(all->plr_data);
+// 	else
+// 		plr_rot_left(all->plr_data);
+// 	put_screen(param);
+// 	if (!param)
+// 		printf("no param\n");
+// 	return (0);
+// }
+
 int		cub(t_data *all)
 {
 	if (start_win(all->win, all->cnfg) < 0)
@@ -49,6 +67,7 @@ int		cub(t_data *all)
 	put_screen(all);
 	mlx_hook(all->win->win, 2, (1L<<0), &key_handle, all);
 	mlx_hook(all->win->win, 17, (1L<<17), stop_game, all);
+	// mlx_hook(all->win->win, 6, (1L<<6), mouse_hook, all);
 	mlx_loop(all->win->mlx);
 	return (0);
 }

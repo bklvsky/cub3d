@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:18:29 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/11 23:18:59 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/12 17:04:05 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int		start_win(t_win *win, t_config *cnfg)
 	if (!win->mlx)
 		return (-1);
 	mlx_get_screen_size(win->mlx, &(win->x_win), &(win->y_win));
+	win->prop = (double)win->x_win / (double)win->y_win;
 	win->img = mlx_new_image(win->mlx, win->x_win, win->y_win);
 	if (!win->img)
 		return (-1);
