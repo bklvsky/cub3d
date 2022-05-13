@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:18:29 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/13 04:00:40 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/13 16:07:37 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ int	start_win(t_win *win, t_config *cnfg)
 								&(win->line_len), &(win->en));
 	if (!win->addr)
 		return (-1);
+	if (get_texture(win, cnfg) < 0)
+		return (-1);
 	win->win = mlx_new_window(win->mlx, win->x_win, win->y_win, "cub3d");
 	if (!win->win)
-		return (-1);
-	if (get_texture(win, cnfg) < 0)
 		return (-1);
 	return (0);
 }

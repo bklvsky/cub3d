@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:34:47 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/13 05:15:40 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/13 18:29:11 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static int	put_player(t_win *win, t_plr *plr_data, char **map)
 		init_cross(plr_data, angle);
 		get_crossing(map, plr_data);
 		get_distance(plr_data);
-		plr_data->cross.side = get_wall_side(plr_data->cross);
 		put_raycast(win, plr_data->cross, i);
 		i += 1;
 		angle -= M_PI / 3 / win->x_win;

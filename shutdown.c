@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 02:12:40 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/13 04:53:14 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/13 16:09:05 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@ int		stop_game(t_data *all)
 	i = 0;
 	while (i < 4)
 	{
-		if (all->win->textures + i != NULL)
+		if (all->win->textures[i].img)
 			mlx_destroy_image(all->win->mlx, all->win->textures[i].img);
 		i += 1;
 	}
-	mlx_destroy_image(all->win->mlx, all->win->img);
-	mlx_destroy_window(all->win->mlx, all->win->win);
+	if (all->win->img)
+		mlx_destroy_image(all->win->mlx, all->win->img);
+	if (all->win->win)
+		mlx_destroy_window(all->win->mlx, all->win->win);
 	shut_down(all, 0);
 	return (0);
 }

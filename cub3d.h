@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/13 15:38:07 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/13 18:18:30 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 # include <stdio.h> //perror
 # include "./libft/libft.h"
 # include "./mlx_linux/mlx.h"
-
-/* for checking if anything is missing from the scene description file*/
 
 # define SCALE 64
 # define START_STEP 0.5
@@ -204,6 +202,7 @@ int		check_map_hor(char **map, t_plr *plr_data, int *x_max);
 int		check_sym_map(char *line, int *x, t_plr *plr_data);
 
 /*game utils*/
+
 void	my_pixel_put(t_win *win, int x, int y, int color);
 
 int		cub(t_data *all);
@@ -227,7 +226,7 @@ void	plr_right(char **map, t_plr *plr_data);
 void	plr_rot_right(t_plr *plr_data);
 void	plr_rot_left(t_plr *plr_data);
 
-int		get_wall_side(t_crs cross);
+int		get_wall_side(t_crs cross, char **map);
 
 //DRAFT VERSION
 void	get_crossing(char **map, t_plr *data);
