@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 18:32:16 by hashly            #+#    #+#             */
-/*   Updated: 2022/05/12 16:51:03 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/13 10:41:05 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	fill_correction(t_plr **plr_data)
 
 	i = -1;
 	while (++i <= NUM_BANDS)
-		(*plr_data)->correction[i] = cos((i - NUM_BANDS / 2) * M_PI / 180.);
+		(*plr_data)->correction[i] = cos((i - NUM_BANDS / 2.) * M_PI / 180.);
 }
 
 void	get_distance(t_plr *plr_data)

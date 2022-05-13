@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/12 17:03:44 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/13 11:02:48 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,17 @@
 # include "./libft/libft.h"
 # include "./mlx_linux/mlx.h"
 
+# include <sys/time.h> 
+
 /* for checking if anything is missing from the scene description file*/
 
 # define SCALE 64
-# define START_STEP 0.25
+# define START_STEP 0.5
 # define FINISH_STEP 0.01
 # define FOV_DEG 60
-# define NUM_BANDS 720
+# define NUM_BANDS 600
 # define V_CROSS 1
 # define H_CROSS 2
-// # define NUM_ANGLE_SET 360
 
 # define NO_TEX 0
 # define SO_TEX 1
@@ -63,7 +64,7 @@
 
 # define GET_PLR_Y -2
 
-# ifndef linux
+# ifdef __linux__
 # define KEY_A 97
 # define KEY_W 119
 # define KEY_D 100

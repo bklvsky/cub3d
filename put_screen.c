@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:34:47 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/12 17:00:04 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/13 11:15:23 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ static int	put_player(t_win *win, t_plr *plr_data, char **map)
 {
 	double	angle;
 	int		i;
+	
+	// struct timeval start, end;
+	// gettimeofday(&start, NULL);
 
 	i = 0;
 	angle = plr_data->plr_dir_rad + M_PI_2 / 3;
@@ -40,6 +43,10 @@ static int	put_player(t_win *win, t_plr *plr_data, char **map)
 		i += 1;
 		angle -= M_PI / 3 / win->x_win;
 	}
+	// gettimeofday(&end, NULL);
+	// long seconds = (end.tv_sec - start.tv_sec);
+    // long micros = ((seconds * 1000000) + end.tv_usec) - (start.tv_usec);
+	// printf("%ld sec %ld microsec\n", seconds, micros);
 	return (0);
 }
 
