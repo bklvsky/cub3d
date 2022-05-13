@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 02:12:40 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/11 23:26:18 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/13 04:53:14 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,6 @@ int		stop_game(t_data *all)
 
 void	free_win(t_data *all)
 {
-/*	if (all->win->mlx)
-	{
-		free(all->win->mlx);
-		free(all->win->win);
-		free(all->win->img);
-		free(all->win->addr);
-	}*/
 	free(all->win);
 	all->win = NULL;
 }
@@ -91,7 +84,7 @@ void	manage_config_errors(int error)
 	else if (error == ERR_SYM_AFTER_MAP)
 		ret = write(2, "symbols after the map.\n", 23);
 	else if (error == ERR_UKNOWN_SYM)
-		ret = write(2, "uknown symbols encountered.\n", 28);
+		ret = write(2, "configuration identifiers error.\n", 33);
 	else if (error == ERR_NOT_CLOSED_MAP)
 		ret = write(2, "the map is not closed.\n", 23);
 	else if (error == ERR_DUPL_DATA)
@@ -106,6 +99,8 @@ void	manage_config_errors(int error)
 
 void	free_all(t_data *all)
 {
+	if (all->fd > 0)
+		close(all->fd);
 	free_config(all);
 	free_arr(all->map);
 	free(all->plr_data);

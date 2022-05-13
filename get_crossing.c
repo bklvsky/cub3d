@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:49:10 by hashly            #+#    #+#             */
-/*   Updated: 2022/05/12 04:52:22 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/13 03:56:52 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	get_crossing(char **map, t_plr *data)
 {
 	double	step;
-	
+
 	step = START_STEP;
 	while (map[(int)data->cross.y / SCALE][(int)data->cross.x / SCALE] == '0')
 	{

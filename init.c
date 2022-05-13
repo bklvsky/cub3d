@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 01:43:54 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/12 11:35:57 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/13 04:01:17 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		init_win(t_win **win)
+int	init_win(t_win **win)
 {
 	*win = ft_calloc(1, sizeof(t_win));
 	if (!(*win))
@@ -20,7 +20,7 @@ int		init_win(t_win **win)
 	return (0);
 }
 
-int		init_config(t_config **cnfg)
+int	init_config(t_config **cnfg)
 {
 	*cnfg = ft_calloc(1, sizeof(t_config));
 	if (!(*cnfg))
@@ -28,9 +28,10 @@ int		init_config(t_config **cnfg)
 	return (0);
 }
 
-int		init_plr(t_plr	**plr_data)
+int	init_plr(t_plr	**plr_data)
 {
-	if (!(*plr_data = (t_plr *)malloc(sizeof(t_plr))))
+	*plr_data = (t_plr *)malloc(sizeof(t_plr));
+	if (!*plr_data)
 		return (ERR_STD);
 	(*plr_data)->plr_num = 0;
 	(*plr_data)->plr_pos_x = -1;
@@ -40,22 +41,17 @@ int		init_plr(t_plr	**plr_data)
 	return (0);
 }
 
-int		init_struct(t_data *all)
+int	init_struct(t_data *all)
 {
-	int		error;
-
-	error = 0;
 	all->fd = -1;
 	all->map = NULL;
-	if ((error = init_win(&(all->win))) != 0)
-		return (error);
-	if ((error = init_config(&(all->cnfg))) != 0)
-		return (error);
+	if (init_win(&(all->win)) || init_config(&(all->cnfg)))
+		return (ERR_STD);
 	all->cnfg->ceil_color = &(all->win->ceil_color);
 	all->cnfg->floor_color = &(all->win->floor_color);
-	if ((error = init_plr(&(all->plr_data))) != 0)
-		return (error);
-	return (error);
+	if (init_plr(&(all->plr_data)))
+		return (ERR_STD);
+	return (0);
 }
 
 void	init_cross(t_plr *plr, double angle)

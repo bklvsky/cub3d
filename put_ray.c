@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 21:42:27 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/12 05:09:08 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/13 05:04:00 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ static int	get_texture_x(t_img *tex, t_crs crs)
 	return ((int)crs.y % SCALE * tex->width / SCALE);
 }
 
-static void		put_wall_texture(t_win *win, t_img *tex, int x, int w_st, int w_end)
+static void	put_wall_texture(t_win *win, t_img *tex, int x, int w_st, int w_end)
 {
-	double		step;
-	double		tex_y;
-	unsigned	color;
+	double			step;
+	double			tex_y;
+	unsigned int	color;
 
 	step = (double)tex->height / (w_end - w_st);
 	tex_y = 0;
@@ -48,7 +48,7 @@ static void		put_wall_texture(t_win *win, t_img *tex, int x, int w_st, int w_end
 	while (w_st < w_end)
 	{
 		color = *(unsigned int *) \
-			(tex->addr + ((int)tex_y * tex->line_len + tex->x * (tex->bpp / 8)));
+		(tex->addr + ((int)tex_y * tex->line_len + tex->x * (tex->bpp / 8)));
 		my_pixel_put(win, x, w_st, color);
 		w_st += 1;
 		tex_y += step;

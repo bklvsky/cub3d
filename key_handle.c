@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_handle.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:27:14 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/12 16:58:38 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/13 04:01:38 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ int	key_handle(int key, t_data *all)
 	if (key == KEY_ESC)
 		stop_game(all);
 	put_screen(all);
-	return(0);
+	return (0);
 }

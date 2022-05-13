@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/13 11:02:48 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/13 15:38:07 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 # include "./libft/libft.h"
 # include "./mlx_linux/mlx.h"
 
-# include <sys/time.h> 
-
 /* for checking if anything is missing from the scene description file*/
 
 # define SCALE 64
@@ -38,7 +36,6 @@
 # define SO_TEX 1
 # define WE_TEX 2
 # define EA_TEX 3
-// # define SP_TEX 5 (only for bonuses)
 # define FLOOR_COL 4
 # define CEIL_COL 5
 # define MAP 6
@@ -64,17 +61,18 @@
 
 # define GET_PLR_Y -2
 
-# ifdef __linux__
-# define KEY_A 97
-# define KEY_W 119
-# define KEY_D 100
-# define KEY_S 115
-#else
-# define KEY_A 1734
-# define KEY_W 1731
-# define KEY_D 1751
-# define KEY_S 1753
+# ifndef __linux__
+#  define KEY_A 97
+#  define KEY_W 119
+#  define KEY_D 100
+#  define KEY_S 115
+# else
+#  define KEY_A 1734
+#  define KEY_W 1731
+#  define KEY_D 1751
+#  define KEY_S 1753
 # endif
+
 # define KEY_UP 65362
 # define KEY_DOWN 65364
 # define KEY_LEFT 65361
@@ -118,7 +116,6 @@ typedef struct	s_config
 	int			y_res;
 	int			s_key;
 	char		*tex_paths[4];
-	// char		*spr_tex_path; for bonus
 	int			*ceil_color;
 	int			*floor_color;
 }				t_config;
@@ -168,7 +165,6 @@ void	check_arg(int argc, char **argv, t_data *all);
 int		check_file_format(char *file_name, char *format);
 int		only_num(const char *line);
 void	free_arr(char **arr);
-int		set_flag(int *flag);
 int		create_trgb(int t, int r, int g, int b);
 
 void	shut_down(t_data *all, int error);
@@ -184,9 +180,9 @@ int		parse_map(t_data *all, t_list **map_ptr);
 void	parser(t_data *all);
 
 /*parse config*/
-int		check_identifiers(int id_number, t_config *cnfg, char *line);
-int		parse_color(int	*color, char *line, int *flag);
-int		parse_tex_pth(char **tex_path, char *line, int *flag);
+int		check_id(int id_number, t_config *cnfg, char *line);
+int		parse_color(int	*color, char *line);
+int		parse_tex_pth(char **tex_path, char *line);
 void	check_all_data(t_data *all);
 char	*get_identifier(int id_number);
 
@@ -231,7 +227,7 @@ void	plr_right(char **map, t_plr *plr_data);
 void	plr_rot_right(t_plr *plr_data);
 void	plr_rot_left(t_plr *plr_data);
 
-int		get_wall_side(float y, float x, float ray_dir, char **map);
+int		get_wall_side(t_crs cross);
 
 //DRAFT VERSION
 void	get_crossing(char **map, t_plr *data);
