@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 15:07:58 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/13 15:55:27 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/13 18:47:16 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,7 @@ void	print_config(t_config *cnfg, char **map)
 int		cub(t_data *all)
 {
 	if (start_win(all->win, all->cnfg) < 0)
-	{
-		ft_putstr_fd("Error:\nmlx error.\n", 2);
 		stop_game(all);
-	} // error management
-	// put_map(all->win, all->cnfg, all->map);
 	all->plr_data->x_win = all->map_width;
 	all->plr_data->y_win = all->map_h;
 	put_screen(all);
