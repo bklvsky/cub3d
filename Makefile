@@ -6,7 +6,7 @@
 #    By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/27 21:46:39 by dselmy            #+#    #+#              #
-#    Updated: 2022/05/13 15:44:01 by dselmy           ###   ########.fr        #
+#    Updated: 2022/05/13 21:09:59 by dselmy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCS =			cub3d.c \
 				parser_base.c \
 				parser_map_utils.c \
 				player_movement.c \
+				parser_player.c \
 				player_rotate.c \
 				put_ray.c \
 				put_screen.c \

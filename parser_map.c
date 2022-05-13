@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 23:06:16 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/13 05:06:26 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/13 21:09:20 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,15 @@ int	check_one_line(char *line, t_plr *plr_data)
 
 int	check_sym_map(char *line, int *x, t_plr *plr_data)
 {	
-	while (ft_strchr("012NSWE", line[*x]) && line[*x])
+	while (ft_strchr("01NSWE", line[*x]) && line[*x])
 	{
 		if (ft_strchr("NSWE", line[*x]))
 		{
-			line[*x] = '0';
 			plr_data->plr_num += 1;
 			plr_data->plr_pos_x = *x * SCALE;
 			plr_data->plr_pos_y = GET_PLR_Y;
-			plr_data->plr_dir_rad = M_PI_2;
+			get_plr_dir(line[*x], plr_data);
+			line[*x] = '0';
 		}
 		*x += 1;
 	}

@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/13 20:40:29 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/13 21:09:36 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include "./mlx_linux/mlx.h"
 
 # define SCALE 256
-# define START_STEP 16
+# define START_STEP 2
 # define FINISH_STEP 0.05
 # define PLR_SPEED 20
 # define FOV_DEG 60
@@ -168,6 +168,7 @@ int		make_map_arr(t_data *all, t_list **map_ptr, int map_h);
 int		read_config(int fd, t_list **head);
 int		parse_config(t_data *all, t_list *cnfg_lst);
 int		parse_map(t_data *all, t_list **map_ptr);
+void	get_plr_dir(char c, t_plr *plr_data);
 void	parser(t_data *all);
 
 /*parse config*/
