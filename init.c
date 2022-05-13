@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 01:43:54 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/13 04:01:17 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/13 23:40:49 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,5 @@ void	init_cross(t_plr *plr, double angle)
 	plr->cross.x = plr->plr_pos_x;
 	plr->cross.y = plr->plr_pos_y;
 	plr->cross.dist = -1;
-	plr->cross.type_cross = 0;
+	plr->cross.side = 0;
 }

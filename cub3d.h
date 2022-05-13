@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/13 21:09:36 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/13 23:49:09 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@
 # define PLR_SPEED 20
 # define FOV_DEG 60
 # define NUM_BANDS 600
-# define V_CROSS 1
-# define H_CROSS 2
 
 # define NO_TEX 0
 # define SO_TEX 1
@@ -102,10 +100,6 @@ typedef struct	s_win
 
 typedef struct	s_config
 {
-	int			data[SIZE_DATA]; // make it into identifiers order
-	int			x_res;
-	int			y_res;
-	int			s_key;
 	char		*tex_paths[4];
 	int			*ceil_color;
 	int			*floor_color;
@@ -119,7 +113,6 @@ typedef struct	s_crs
 	double		x;
 	double		y;
 	double		dist;
-	char		type_cross; //1 - V_CROSS; 2 - H_CROSS not needed anymore
 	int			side;
 }				t_crs;
 
@@ -162,7 +155,7 @@ void	shut_down(t_data *all, int error);
 void	free_all(t_data *all);
 void	manage_config_errors(int error);
 void	manage_arg_errors(int error);
-void	free_config(t_data *all);
+// void	free_config(t_data *all);
 
 int		make_map_arr(t_data *all, t_list **map_ptr, int map_h);
 int		read_config(int fd, t_list **head);

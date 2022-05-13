@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 21:25:18 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/13 04:49:54 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/13 23:41:13 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ int	parse_map(t_data *all, t_list **map_ptr)
 {
 	int		err_flag;
 
-	all->cnfg->data[MAP] = 1;
 	all->map_h = get_map_h(*map_ptr);
 	all->map_width = 0;
 	if (make_map_arr(all, map_ptr, all->map_h) < 0)
