@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/13 18:18:30 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/13 20:40:29 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@
 # include "./libft/libft.h"
 # include "./mlx_linux/mlx.h"
 
-# define SCALE 64
-# define START_STEP 0.5
-# define FINISH_STEP 0.01
+# define SCALE 256
+# define START_STEP 16
+# define FINISH_STEP 0.05
+# define PLR_SPEED 20
 # define FOV_DEG 60
 # define NUM_BANDS 600
 # define V_CROSS 1
@@ -59,18 +60,10 @@
 
 # define GET_PLR_Y -2
 
-# ifndef __linux__
-#  define KEY_A 97
-#  define KEY_W 119
-#  define KEY_D 100
-#  define KEY_S 115
-# else
-#  define KEY_A 1734
-#  define KEY_W 1731
-#  define KEY_D 1751
-#  define KEY_S 1753
-# endif
-
+# define KEY_A 97
+# define KEY_W 119
+# define KEY_D 100
+# define KEY_S 115
 # define KEY_UP 65362
 # define KEY_DOWN 65364
 # define KEY_LEFT 65361

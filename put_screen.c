@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:34:47 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/13 18:29:11 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/13 20:44:29 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	put_raycast(t_win *win, t_crs crs, int win_x)
 
 	if (win_x < win->x_win)
 	{
-		wall_height = win->y_win * SCALE / crs.dist * win->prop;
+		wall_height = round(win->y_win * SCALE / crs.dist * win->prop);
 		put_ray(win, crs, round(wall_height), win_x);
 	}
 }
