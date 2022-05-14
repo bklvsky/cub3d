@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 21:25:55 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/13 04:32:49 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/15 01:56:10 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	check_id(int id_number, t_config *cnfg, char *line)
 	if (id_number == MAP)
 		return (1);
 	if (!id_is_valid(get_identifier(id_number), line))
-		return (ERR_UKNOWN_SYM);
+		return (put_error(CONFIG_ERR, ERR_UKNOWN_SYM));
 	if (id_number == NO_TEX)
 		return (parse_tex_pth(&cnfg->tex_paths[NO_TEX], line));
 	else if (id_number == SO_TEX)
@@ -67,10 +67,10 @@ int	parse_color(int	*color, char *line)
 
 	line_wo_spaces = ft_strtrim(line + 1, " ");
 	if (!line_wo_spaces)
-		return (ERR_STD);
+		return (put_error("Memory error", ERR_STD));
 	array = ft_split(line_wo_spaces, ',');
 	if (!array)
-		return (parse_color_end(NULL, line_wo_spaces, ERR_STD));
+		return (parse_color_end(array, line_wo_spaces, ERR_STD));
 	y = 0;
 	while (array[y])
 	{
@@ -91,8 +91,8 @@ int	parse_tex_pth(char **tex_path, char *line)
 {
 	*tex_path = ft_strtrim(line + 2, " ");
 	if (!(*tex_path))
-		return (ERR_STD);
+		return (put_error("Memory error", ERR_STD));
 	if (!check_file_format(*tex_path, ".xpm"))
-		return (ERR_TEX_FORMAT);
+		return (put_error(*tex_path, ERR_TEX_FORMAT));
 	return (0);
 }

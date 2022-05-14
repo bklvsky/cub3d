@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+         #
+#    By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/27 21:46:39 by dselmy            #+#    #+#              #
-#    Updated: 2022/05/14 21:48:01 by hashly           ###   ########.fr        #
+#    Updated: 2022/05/15 01:43:18 by dselmy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ OBJ_DIR =			./obj/
 
 INC_NAME = 			cub3d.h
 SRCS_NAME =			cub3d.c \
+					error.c \
 					free.c \
 					init_mlx.c \
 					init.c \

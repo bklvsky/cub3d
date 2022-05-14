@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/14 20:21:37 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/15 01:59:20 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,17 @@
 # define ERR_RESOLUTION -6
 # define ERR_TEX_FORMAT -7
 # define ERR_COLOR -8
-# define ERR_NO_MAP -9
+# define ERR_UNKNOWN_SYM_MAP -9
 # define ERR_SYM_AFTER_MAP -10
 # define ERR_UKNOWN_SYM -11
 # define ERR_NOT_CLOSED_MAP -12
 # define ERR_DUPL_DATA -13
 # define ERR_NO_PLR -15
 # define ERR_MULT_PLRS -16
+
+# define CONFIG_ERR "Configuration file error"
+# define MEM_ERR "Memory error"
+# define MLX_ERR "MiniLibX error"
 
 # define GET_PLR_Y -2
 
@@ -99,6 +103,7 @@ typedef struct	s_win
 
 typedef struct	s_config
 {
+	char		*arg;
 	char		*tex_paths[4];
 	int			*ceil_color;
 	int			*floor_color;
@@ -138,21 +143,22 @@ typedef struct	s_data
 	t_win		*win;
 }				t_data;
 
-int		init_struct(t_data *all);
-int		init_config(t_config **cnfg);
-int		init_plr(t_plr	**plr_data);
+int		init_struct(t_data *all, char *arg);
 void	init_cross(t_plr *plr, double angle);
 
-void	check_arg(int argc, char **argv, t_data *all);
 int		check_file_format(char *file_name, char *format);
 int		only_num(const char *line);
 void	free_arr(char **arr);
 int		create_trgb(int t, int r, int g, int b);
 
-void	shut_down(t_data *all, int error);
+void	shut_down(t_data *all);
 void	free_all(t_data *all);
-void	manage_config_errors(int error);
-void	manage_arg_errors(int error);
+
+/*error management*/
+int		put_error(char *error_cause, int error);
+// void	manage_config_errors(int error);
+// void	manage_arg_errors(int error);
+
 // void	free_config(t_data *all);
 
 int		make_map_arr(t_data *all, t_list **map_ptr, int map_h);

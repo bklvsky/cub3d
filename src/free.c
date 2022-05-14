@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 23:43:45 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/14 19:03:10 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/15 01:14:57 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	free_config(t_data *all)
 		free(all->cnfg->tex_paths[i]);
 		i += 1;
 	}
+	free(all->cnfg->arg);
 	free(all->cnfg);
 }
 

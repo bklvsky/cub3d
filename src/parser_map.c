@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 23:06:16 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/13 21:09:20 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/15 01:52:35 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ int	check_map_ver(char **map, int x_max)
 		{
 			if (flag_whitespace == 1)
 				if (map[y - 1][x] != '1')
-					return (ERR_NOT_CLOSED_MAP);
+					return (put_error(CONFIG_ERR, ERR_NOT_CLOSED_MAP));
 			skip_spaces_col(map, &y, x);
 			if (map[y] && (map[y][x] != '1'))
-				return (ERR_NOT_CLOSED_MAP);
+				return (put_error(CONFIG_ERR, ERR_NOT_CLOSED_MAP));
 			flag_whitespace = 1;
 			skip_map_sym_col(map, &y, x);
 		}
 		if (map[y - 1][x] != '1' && map[y - 1][x] != ' ' && map[y - 1][x])
-			return (ERR_NOT_CLOSED_MAP);
+			return (put_error(CONFIG_ERR, ERR_NOT_CLOSED_MAP));
 	}
 	return (0);
 }
@@ -50,7 +50,7 @@ int	make_rect_map(char **map, int x_max)
 	{
 		new_line = (char *)ft_calloc(x_max + 1, sizeof(char));
 		if (!new_line)
-			return (ERR_STD);
+			return (put_error(MEM_ERR, ERR_STD));
 		ft_strlcpy(new_line, map[y], x_max + 1);
 		free(map[y]);
 		map[y] = new_line;
@@ -70,15 +70,15 @@ int	check_one_line(char *line, t_plr *plr_data)
 	{
 		if (flag_whitespace == 1)
 			if (line[x - 1] != '1')
-				return (ERR_NOT_CLOSED_MAP);
+				return (put_error(CONFIG_ERR, ERR_NOT_CLOSED_MAP));
 		skip_spaces_line(line, &x, &flag_whitespace);
 		if (line[x] != '1' && line[x] != '\0')
-			return (ERR_NOT_CLOSED_MAP);
+			return (put_error(CONFIG_ERR, ERR_NOT_CLOSED_MAP));
 		if (check_sym_map(line, &x, plr_data) != 0)
-			return (ERR_UKNOWN_SYM);
+			return (put_error(CONFIG_ERR, ERR_UNKNOWN_SYM_MAP));
 	}
 	if (line[x - 1] != '1' && line[x - 1] != ' ')
-		return (ERR_NOT_CLOSED_MAP);
+		return (put_error(CONFIG_ERR, ERR_NOT_CLOSED_MAP));
 	return (x);
 }
 
@@ -97,12 +97,11 @@ int	check_sym_map(char *line, int *x, t_plr *plr_data)
 		*x += 1;
 	}
 	if (line[*x] != ' ' && line[*x] != '\0')
-		return (ERR_UKNOWN_SYM);
+		return (-1);
 	return (0);
 }
 
 int	check_map_hor(char **map, t_plr *plr_data, int *x_max)
-
 {
 	int		x;
 	int		y;
@@ -116,12 +115,12 @@ int	check_map_hor(char **map, t_plr *plr_data, int *x_max)
 		else
 			get_x_max(x_max, x);
 		if (plr_data->plr_num > 1)
-			return (ERR_MULT_PLRS);
+			return (put_error(CONFIG_ERR, ERR_MULT_PLRS));
 		if (plr_data->plr_pos_y == GET_PLR_Y)
 			plr_data->plr_pos_y = y * SCALE;
 		y += 1;
 	}
 	if (plr_data->plr_num == 0)
-		return (ERR_NO_PLR);
+		return (put_error(CONFIG_ERR, ERR_NO_PLR));
 	return (0);
 }
