@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/13 23:49:09 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/14 19:39:21 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # define FINISH_STEP 0.05
 # define PLR_SPEED 20
 # define FOV_DEG 60
-# define NUM_BANDS 600
 
 # define NO_TEX 0
 # define SO_TEX 1
@@ -122,11 +121,10 @@ typedef struct	s_plr
 	double		plr_pos_x;
 	double		plr_pos_y;
 	double		plr_dir_rad;
-	double		correction[NUM_BANDS + 1];
+	double		*correction;
 	int			x_win;
 	int			y_win;
 	t_crs		cross;
-	// double		angle_set_sin[NUM_ANGLE_SET + 1];
 }				t_plr;
 
 typedef struct	s_data
@@ -197,7 +195,7 @@ int		cub(t_data *all);
 int		stop_game(t_data *all);
 
 /*get texture*/
-int		start_win(t_win *win, t_config *cnfg);
+int		start_win(t_data *all);
 
 /*draw*/
 void	put_ray(t_win *win, t_crs crs, int w_h, int x);
@@ -217,9 +215,9 @@ int		get_wall_side(t_crs cross, char **map);
 
 //DRAFT VERSION
 void	get_crossing(char **map, t_plr *data);
-void	get_distance(t_plr *plr_data);
+void	get_distance(t_plr *plr_data, int index);
 char	wall(char **map, t_plr *data, double *x0, double *y0);
-void	fill_correction(t_plr **plr_data);
+char	fill_correction(t_plr *plr_data, int x_win);
 // int		raycast(char **map, t_plr *plr, t_win *win);
 // void	put_ray(t_win *win, int w_color, int w_h, int x);
 

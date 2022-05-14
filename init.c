@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 01:43:54 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/13 23:40:49 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/14 19:20:12 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	init_plr(t_plr	**plr_data)
 	(*plr_data)->plr_pos_x = -1;
 	(*plr_data)->plr_pos_y = -1;
 	(*plr_data)->plr_dir_rad = M_PI_2;
-	fill_correction(plr_data);
 	return (0);
 }
 

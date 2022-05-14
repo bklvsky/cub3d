@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 23:43:45 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/13 23:45:36 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/14 19:03:10 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	free_all(t_data *all)
 		close(all->fd);
 	free_config(all);
 	free_arr(all->map);
+	free(all->plr_data->correction);
 	free(all->plr_data);
 	free(all->win);
 	free(all);

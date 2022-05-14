@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 15:07:58 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/13 18:47:16 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/14 19:36:07 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,16 @@ void	print_config(t_config *cnfg, char **map)
 // 	return (0);
 // }
 
-int		cub(t_data *all)
+int	cub(t_data *all)
 {
-	if (start_win(all->win, all->cnfg) < 0)
+	if (start_win(all) < 0)
 		stop_game(all);
 	all->plr_data->x_win = all->map_width;
 	all->plr_data->y_win = all->map_h;
 	put_screen(all);
-	mlx_hook(all->win->win, 2, (1L<<0), &key_handle, all);
-	mlx_hook(all->win->win, 17, (1L<<17), stop_game, all);
-	// mlx_hook(all->win->win, 6, (1L<<6), mouse_hook, all);
+	mlx_hook(all->win->win, 2, (1L << 0), &key_handle, all);
+	mlx_hook(all->win->win, 17, (1L << 17), stop_game, all);
+	// mlx_hook(all->win->win, 6, (1L << 6), mouse_hook, all);
 	mlx_loop(all->win->mlx);
 	return (0);
 }

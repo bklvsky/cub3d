@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 18:32:16 by hashly            #+#    #+#             */
-/*   Updated: 2022/05/14 17:36:40 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/14 19:37:40 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,30 @@ char	wall(char **map, t_plr *data, double *x0, double *y0)
 	return (0);
 }
 
-void	fill_correction(t_plr **plr_data)
+char	fill_correction(t_plr *plr_data, int x_win)
 {
-	int	i;
+	int		i;
+	double	angle;
+	double	step;
 
 	i = -1;
-	while (++i <= NUM_BANDS)
-		(*plr_data)->correction[i] = cos((i - NUM_BANDS / 2) * M_PI / 180.);
+	angle = -M_PI_2 / 3.;
+	step = (double)FOV_DEG / (double)(x_win - 1) / 180. * M_PI;
+	plr_data->correction = ft_calloc(x_win, sizeof(double));
+	if (!plr_data->correction)
+		return (1);
+	while (++i < x_win)
+	{
+		plr_data->correction[i] = cos(angle);
+		angle += step;
+	}
+	return (0);
 }
 
-void	get_distance(t_plr *plr_data)
+void	get_distance(t_plr *plr_data, int index)
 {
 	double	p_0;
 	double	p_1;
-	int		index;
 
 	if (fabs(plr_data->cross.cos_angle) < 0.5)
 	{
@@ -53,7 +63,5 @@ void	get_distance(t_plr *plr_data)
 		p_1 = plr_data->cross.x;
 		plr_data->cross.dist = fabs((p_1 - p_0) / plr_data->cross.cos_angle);
 	}
-	index = (plr_data->cross.angle - plr_data->plr_dir_rad + \
-										NUM_BANDS * M_PI / 360) / M_PI * 180.;
 	plr_data->cross.dist *= plr_data->correction[index];
 }

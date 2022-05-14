@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   put_screen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:34:47 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/13 21:04:16 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/14 19:36:33 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,14 @@ static int	put_player(t_win *win, t_plr *plr_data, char **map)
 	double	angle;
 	int		i;
 
-	i = 0;
+	i = -1;
 	angle = plr_data->plr_dir_rad + M_PI_2 / 3;
-	while (angle >= plr_data->plr_dir_rad - M_PI_2 / 3)
+	while (++i < win->x_win)
 	{
 		init_cross(plr_data, angle);
 		get_crossing(map, plr_data);
-		get_distance(plr_data);
+		get_distance(plr_data, i);
 		put_raycast(win, plr_data->cross, i);
-		i += 1;
 		angle -= M_PI / 3 / win->x_win;
 	}
 	return (0);

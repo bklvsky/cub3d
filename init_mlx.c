@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:18:29 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/13 23:33:02 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/14 19:18:31 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	put_error(char *path, char *message)
 		}
 		else
 			ft_putendl_fd(strerror(errno), 2);
-	}		
+	}
 	return (-1);
 }
 
@@ -59,12 +59,18 @@ static int	get_texture(t_win *win, t_config *cnfg)
 	return (0);
 }
 
-int	start_win(t_win *win, t_config *cnfg)
+// int	start_win(t_win *win, t_config *cnfg)
+int	start_win(t_data *all)
 {
+	t_win	*win;
+
+	win = all->win;
 	win->mlx = mlx_init();
 	if (!win->mlx)
 		return (put_error(NULL, NULL));
 	mlx_get_screen_size(win->mlx, &(win->x_win), &(win->y_win));
+	if (fill_correction(all->plr_data, win->x_win))
+		return (put_error(NULL, NULL));
 	win->prop = (double)win->x_win / (double)win->y_win;
 	win->img = mlx_new_image(win->mlx, win->x_win, win->y_win);
 	if (!win->img)
@@ -73,7 +79,7 @@ int	start_win(t_win *win, t_config *cnfg)
 								&(win->line_len), &(win->en));
 	if (!win->addr)
 		return (put_error(NULL, NULL));
-	if (get_texture(win, cnfg) < 0)
+	if (get_texture(win, all->cnfg) < 0)
 		return (-1);
 	win->win = mlx_new_window(win->mlx, win->x_win, win->y_win, "cub3d");
 	if (!win->win)
