@@ -6,7 +6,7 @@
 #    By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/27 21:46:39 by dselmy            #+#    #+#              #
-#    Updated: 2022/05/13 21:09:59 by dselmy           ###   ########.fr        #
+#    Updated: 2022/05/14 15:03:05 by dselmy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ LIBFT_DIR =			./libft/
 OBJ_DIR =			./obj/
 
 SRCS =			cub3d.c \
+				free.c \
 				init_mlx.c \
 				init.c \
 				key_handle.c \
@@ -58,7 +59,7 @@ $(NAME): $(OBJ)
 		@make -C $(LIBFT_DIR)
 		@make -C $(MLX_DIR)
 		gcc -o $(NAME) $(CFLAGS) -I../ $(OBJ) $(LIBFT_DIR)libft.a \
-		../$(MLX_DIR)libmlx.a $(MLX_FLAGS)
+		./$(MLX_DIR)libmlx.a $(MLX_FLAGS)
 		cp $(NAME) ./
 
 $(OBJ_DIR)%.o: %.c
