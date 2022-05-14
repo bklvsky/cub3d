@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_distance.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 18:32:16 by hashly            #+#    #+#             */
-/*   Updated: 2022/05/13 03:57:31 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/14 17:31:51 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,22 @@ void	fill_correction(t_plr **plr_data)
 
 void	get_distance(t_plr *plr_data)
 {
-	double	y_0;
-	double	y_1;
+	double	pnt_0;
+	double	pnt_1;
 	int		index;
 
-	y_0 = plr_data->plr_pos_y;
-	y_1 = plr_data->cross.y;
-	plr_data->cross.dist = fabs(y_1 - y_0) / fabs(plr_data->cross.sin_angle);
+	if (fabs(plr_data->cross.cos_angle) < 0.5)
+	{
+		pnt_0 = plr_data->plr_pos_y;
+		pnt_1 = plr_data->cross.y;
+		plr_data->cross.dist = fabs((pnt_1 - pnt_0) / plr_data->cross.sin_angle);
+	}
+	else
+	{
+		pnt_0 = plr_data->plr_pos_x;
+		pnt_1 = plr_data->cross.x;
+		plr_data->cross.dist = fabs((pnt_1 - pnt_0) / plr_data->cross.cos_angle);
+	}
 	index = (plr_data->cross.angle - plr_data->plr_dir_rad + \
 										NUM_BANDS * M_PI / 360) / M_PI * 180.;
 	plr_data->cross.dist *= plr_data->correction[index];
