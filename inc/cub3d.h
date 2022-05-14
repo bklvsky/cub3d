@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/14 19:39:21 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/14 20:21:37 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include <fcntl.h> //open, close
 # include <stdlib.h>
 # include <stdio.h> //perror
-# include "./libft/libft.h"
-# include "./mlx_linux/mlx.h"
+# include "../libft/libft.h"
+# include "../mlx_linux/mlx.h"
 
 # define SCALE 256
 # define START_STEP 2

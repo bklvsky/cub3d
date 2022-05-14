@@ -60,9 +60,9 @@ SRCS =	ft_atoi.c \
 		ft_lstdouble_new.c \
 		ft_lstdouble_size.c
 
-OBJS = $(SRCS:.c=.o)
-
-INCLUDES = ./
+OBJS		= $(SRCS:.c=.o)
+DEP			= $(SRCS:.c=.d)
+INCLUDES	= ./
 
 HEADER = libft.h
 
@@ -75,12 +75,16 @@ $(NAME): $(OBJS)
 		ranlib $(NAME)
 
 $(OBJS): %.o: %.c
-		gcc -c $(FLAGS) $< -I$(INCLUDES) -o $@
+		gcc -c $(FLAGS) $< -I$(INCLUDES) -o $@ -MD
 
 clean:
-		/bin/rm -f $(OBJS)
+		/bin/rm -f $(OBJS) $(DEP)
 
 fclean: clean
 		/bin/rm -f $(NAME)
 
 re: fclean all
+
+include $(wildcard $(DEP))
+
+.PHONY: all clean fclean re
