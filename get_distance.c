@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 18:32:16 by hashly            #+#    #+#             */
-/*   Updated: 2022/05/14 17:31:51 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/14 17:36:40 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,21 @@ void	fill_correction(t_plr **plr_data)
 
 void	get_distance(t_plr *plr_data)
 {
-	double	pnt_0;
-	double	pnt_1;
+	double	p_0;
+	double	p_1;
 	int		index;
 
 	if (fabs(plr_data->cross.cos_angle) < 0.5)
 	{
-		pnt_0 = plr_data->plr_pos_y;
-		pnt_1 = plr_data->cross.y;
-		plr_data->cross.dist = fabs((pnt_1 - pnt_0) / plr_data->cross.sin_angle);
+		p_0 = plr_data->plr_pos_y;
+		p_1 = plr_data->cross.y;
+		plr_data->cross.dist = fabs((p_1 - p_0) / plr_data->cross.sin_angle);
 	}
 	else
 	{
-		pnt_0 = plr_data->plr_pos_x;
-		pnt_1 = plr_data->cross.x;
-		plr_data->cross.dist = fabs((pnt_1 - pnt_0) / plr_data->cross.cos_angle);
+		p_0 = plr_data->plr_pos_x;
+		p_1 = plr_data->cross.x;
+		plr_data->cross.dist = fabs((p_1 - p_0) / plr_data->cross.cos_angle);
 	}
 	index = (plr_data->cross.angle - plr_data->plr_dir_rad + \
 										NUM_BANDS * M_PI / 360) / M_PI * 180.;
