@@ -3,33 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   put_screen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:34:47 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/14 19:41:29 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/17 00:27:36 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	put_raycast(t_win *win, t_crs crs, int win_x)
-{
-	int	wall_height;
-
-	if (win_x < win->x_win)
-	{
-		wall_height = round(win->y_win * SCALE / crs.dist * win->prop);
-		put_ray(win, crs, round(wall_height), win_x);
-	}
-}
-
 static int	put_player(t_win *win, t_plr *plr_data, char **map)
 {
 	double	angle;
 	int		i;
-
-	// struct timeval begin, end;
-	// gettimeofday(&begin, 0);
 
 	i = -1;
 	angle = plr_data->plr_dir_rad + M_PI_2 / 3;
@@ -38,15 +24,11 @@ static int	put_player(t_win *win, t_plr *plr_data, char **map)
 		init_cross(plr_data, angle);
 		get_crossing(map, plr_data);
 		get_distance(plr_data, i);
-		put_raycast(win, plr_data->cross, i);
+		plr_data->cross.wall_height = \
+				round(win->y_win * SCALE / plr_data->cross.dist * win->prop);
+		put_ray(win, plr_data->cross, i);
 		angle -= M_PI / 3 / win->x_win;
 	}
-	// gettimeofday(&end, 0);
-	// long	microseconds = (end.tv_usec - begin.tv_usec) / 1000;
-	// static	long mean = 27;
-	// if (microseconds > 0)
-	// 	mean = (mean + microseconds) / 2;
-	// printf("Result ms: %ld\tmean ms = %ld\n", microseconds, mean);
 	return (0);
 }
 

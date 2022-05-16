@@ -6,30 +6,11 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:18:29 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/15 01:57:51 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/17 00:32:56 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-// static int	put_error(char *path, char *message)
-// {
-// 	ft_putstr_fd("MLX error\n", 2);
-// 	if (!path)
-// 		perror("");
-// 	if (path)
-// 	{
-// 		if (message)
-// 		{
-// 			ft_putstr_fd(path, 2);
-// 			ft_putstr_fd(": ", 2);
-// 			ft_putendl_fd(message, 2);
-// 		}
-// 		else
-// 			ft_putendl_fd(strerror(errno), 2);
-// 	}
-// 	return (-1);
-// }
 
 static int	get_tex_img(void *mlx, char *path, t_img *tex)
 {

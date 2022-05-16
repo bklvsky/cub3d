@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/15 01:59:20 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/17 00:34:05 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 # define CUB3D_H
 
 # include <math.h>
-# include <string.h> //strerror
-# include <errno.h> //errno apparently
-# include <fcntl.h> //open, close
+# include <string.h>
+# include <errno.h>
+# include <fcntl.h>
 # include <stdlib.h>
-# include <stdio.h> //perror
+# include <stdio.h>
 # include "../libft/libft.h"
 # include "../mlx_linux/mlx.h"
 
@@ -83,7 +83,7 @@ typedef struct s_img
 	int			x;
 }				t_img;
 
-typedef struct	s_win
+typedef struct s_win
 {
 	void		*mlx;
 	void		*win;
@@ -101,7 +101,7 @@ typedef struct	s_win
 	double		prop;
 }				t_win;
 
-typedef struct	s_config
+typedef struct s_config
 {
 	char		*arg;
 	char		*tex_paths[4];
@@ -109,7 +109,7 @@ typedef struct	s_config
 	int			*floor_color;
 }				t_config;
 
-typedef struct	s_crs
+typedef struct s_crs
 {
 	double		angle;
 	double		sin_angle;
@@ -117,10 +117,11 @@ typedef struct	s_crs
 	double		x;
 	double		y;
 	double		dist;
+	int			wall_height;
 	int			side;
 }				t_crs;
 
-typedef struct	s_plr
+typedef struct s_plr
 {
 	int			plr_num;
 	double		plr_pos_x;
@@ -132,7 +133,7 @@ typedef struct	s_plr
 	t_crs		cross;
 }				t_plr;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	int			fd;
 	char		**map;
@@ -143,23 +144,30 @@ typedef struct	s_data
 	t_win		*win;
 }				t_data;
 
+/*init*/
+
 int		init_struct(t_data *all, char *arg);
 void	init_cross(t_plr *plr, double angle);
+int		start_win(t_data *all);
+
+/*utils*/
 
 int		check_file_format(char *file_name, char *format);
 int		only_num(const char *line);
 void	free_arr(char **arr);
 int		create_trgb(int t, int r, int g, int b);
 
+/*shutdown*/
+
 void	shut_down(t_data *all);
 void	free_all(t_data *all);
+int		stop_game(t_data *all);
 
 /*error management*/
-int		put_error(char *error_cause, int error);
-// void	manage_config_errors(int error);
-// void	manage_arg_errors(int error);
 
-// void	free_config(t_data *all);
+int		put_error(char *error_cause, int error);
+
+/*parsing*/
 
 int		make_map_arr(t_data *all, t_list **map_ptr, int map_h);
 int		read_config(int fd, t_list **head);
@@ -168,11 +176,11 @@ int		parse_map(t_data *all, t_list **map_ptr);
 void	get_plr_dir(char c, t_plr *plr_data);
 void	parser(t_data *all);
 
-/*parse config*/
+/*parse config utils*/
+
 int		check_id(int id_number, t_config *cnfg, char *line);
 int		parse_color(int	*color, char *line);
 int		parse_tex_pth(char **tex_path, char *line);
-void	check_all_data(t_data *all);
 char	*get_identifier(int id_number);
 
 int		parse_color_end(char **array, char *line_wo_spaces, int error);
@@ -186,6 +194,7 @@ void	skip_spaces_col(char **map, int *y, int x);
 void	skip_map_sym_col(char **map, int *y, int x);
 
 /*parsing map*/
+
 int		check_map_ver(char **map, int x_max);
 int		make_rect_map(char **map, int x_max);
 int		check_one_line(char *line, t_plr *plr_data);
@@ -198,13 +207,11 @@ void	my_pixel_put(t_win *win, int x, int y, int color);
 
 int		cub(t_data *all);
 
-int		stop_game(t_data *all);
-
-/*get texture*/
-int		start_win(t_data *all);
-
 /*draw*/
-void	put_ray(t_win *win, t_crs crs, int w_h, int x);
+
+void	put_ray(t_win *win, t_crs crs, int x);
+void	put_wall_texture(t_win *win, t_img *tex, int x, int wall_height);
+int		get_texture_x(t_img *tex, t_crs crs);
 void	put_screen(t_data *all);
 
 int		key_handle(int key, t_data *all);
@@ -219,12 +226,9 @@ void	plr_rot_left(t_plr *plr_data);
 
 int		get_wall_side(t_crs cross, char **map);
 
-//DRAFT VERSION
 void	get_crossing(char **map, t_plr *data);
 void	get_distance(t_plr *plr_data, int index);
 char	wall(char **map, t_plr *data, double *x0, double *y0);
 char	fill_correction(t_plr *plr_data, int x_win);
-// int		raycast(char **map, t_plr *plr, t_win *win);
-// void	put_ray(t_win *win, int w_color, int w_h, int x);
 
 #endif
