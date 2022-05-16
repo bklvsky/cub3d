@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/17 00:34:05 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/17 02:49:24 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,7 @@ int		cub(t_data *all);
 /*draw*/
 
 void	put_ray(t_win *win, t_crs crs, int x);
-void	put_wall_texture(t_win *win, t_img *tex, int x, int wall_height);
+void	put_wall_texture(t_win *win, t_img *tex, int x, t_crs src);
 int		get_texture_x(t_img *tex, t_crs crs);
 void	put_screen(t_data *all);
 

@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 21:42:27 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/17 00:27:21 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/17 02:52:55 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	put_wall(t_win *win, t_crs crs, int x)
 
 	tex = win->textures + crs.side;
 	tex->x = get_texture_x(tex, crs);
-	put_wall_texture(win, tex, x, crs.wall_height);
+	put_wall_texture(win, tex, x, crs);
 }
 
 static void	put_floor(t_win *win, int x, int w_end)
