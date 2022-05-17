@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:18:29 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/17 00:32:56 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/17 03:34:24 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	get_tex_img(void *mlx, char *path, t_img *tex)
 		return (put_error(path, ERR_STD));
 	tex->addr = mlx_get_data_addr(tex->img, &(tex->bpp), \
 									&(tex->line_len), &(tex->en));
-	if (tex->width != SCALE || tex->height != SCALE)
+	if (tex->width != tex->height)
 		return (put_error(path, ERR_RESOLUTION));
 	if (!tex->addr)
 		return (put_error(path, ERR_STD));

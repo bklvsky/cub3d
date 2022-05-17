@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 23:48:14 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/17 02:52:31 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/17 03:26:34 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int	get_texture_x(t_img *tex, t_crs crs)
 	if (crs.side == NO_TEX)
 		return ((int)crs.x % SCALE * tex->width / SCALE);
 	else if (crs.side == SO_TEX)
-		return (SCALE - (int)crs.x % SCALE * tex->width / SCALE);
+		return ((SCALE - (int)crs.x % SCALE) * tex->width / SCALE);
 	else if (crs.side == EA_TEX)
 		return ((int)crs.y % SCALE * tex->width / SCALE);
-	return (SCALE - (int)crs.y % SCALE * tex->width / SCALE);
+	return ((SCALE - (int)crs.y % SCALE) * tex->width / SCALE);
 }
 
 void	put_wall_texture(t_win *win, t_img *tex, int x, t_crs crs)

@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 00:40:25 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/15 01:58:49 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/17 03:29:00 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*manage_config_errors(int error)
 	if (error == ERR_MISSING_CONF_DATA)
 		return ("incomplete scene configuration data.");
 	else if (error == ERR_RESOLUTION)
-		return ("wrong resolution data formatting (256x256).");
+		return ("textures should be square.");
 	else if (error == ERR_TEX_FORMAT)
 		return ("wrong texture file format (.xpm is required).");
 	else if (error == ERR_COLOR)
