@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 00:14:57 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/15 01:59:31 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/17 12:09:04 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 static int	check_arg(int argc, char **argv, t_data *all)
 {
-	if (argc < 2)
-		return (put_error(NULL, ERR_ARG_NO_FILE));
-	else if (argc > 2)
+	if (argc > 2)
 		return (put_error(NULL, ERR_TOO_MANY_ARG));
 	else
 	{
@@ -35,6 +33,11 @@ int	main(int argc, char **argv)
 {
 	t_data	*all;
 
+	if (argc < 2)
+	{
+		put_error(NULL, ERR_ARG_NO_FILE);
+		return (0);
+	}
 	all = (t_data *)ft_calloc(1, sizeof(t_data));
 	if (!all)
 		return (put_error(MEM_ERR, ERR_STD));
