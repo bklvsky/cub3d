@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/17 02:49:24 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/17 22:47:03 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct s_win
 
 typedef struct s_config
 {
+	int			data[7];
 	char		*arg;
 	char		*tex_paths[4];
 	int			*ceil_color;
@@ -156,6 +157,8 @@ int		check_file_format(char *file_name, char *format);
 int		only_num(const char *line);
 void	free_arr(char **arr);
 int		create_trgb(int t, int r, int g, int b);
+int		set_flag(int *flag);
+int		check_all_data(int *data);
 
 /*shutdown*/
 
@@ -178,9 +181,9 @@ void	parser(t_data *all);
 
 /*parse config utils*/
 
-int		check_id(int id_number, t_config *cnfg, char *line);
+int		check_id(t_config *cnfg, char *line);
 int		parse_color(int	*color, char *line);
-int		parse_tex_pth(char **tex_path, char *line);
+int		parse_tex_pth(t_config *cnfg, int tex_id, char *line);
 char	*get_identifier(int id_number);
 
 int		parse_color_end(char **array, char *line_wo_spaces, int error);

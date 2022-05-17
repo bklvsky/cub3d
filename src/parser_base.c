@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 21:25:18 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/17 00:30:44 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/17 22:45:11 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,30 +57,30 @@ int	read_config(int fd, t_list **head)
 
 int	parse_config(t_data *all, t_list *cnfg_lst)
 {
-	int		i;
+	int		flag;
 
-	i = -1;
 	while (cnfg_lst)
 	{
 		if (((char *)(cnfg_lst->content))[0])
 		{
-			if (++i <= MAP)
-			{
-				if (check_id(i, all->cnfg, (char *)(cnfg_lst->content)) < 0)
-					return (-1);
-				if (i == MAP)
-					if (parse_map(all, &cnfg_lst) < 0)
-						return (-1);
-			}
-			else
+			if (all->cnfg->data[MAP])
 				return (put_error(CONFIG_ERR, ERR_SYM_AFTER_MAP));
+			flag = check_id(all->cnfg, (char *)(cnfg_lst->content));
+			if (flag < 0)
+				return (-1);
+			if (flag == 1 && ft_strchr("10NSWE ", \
+											((char *)cnfg_lst->content)[0]))
+			{
+				if (parse_map(all, &cnfg_lst) < 0)
+					return (-1);
+			}
+			else if (flag == 1)
+				return (put_error(CONFIG_ERR, ERR_UKNOWN_SYM));
 		}
 		if (cnfg_lst)
 			cnfg_lst = cnfg_lst->next;
 	}
-	if (i < MAP)
-		return (put_error(CONFIG_ERR, ERR_MISSING_CONF_DATA));
-	return (0);
+	return (check_all_data(all->cnfg->data));
 }
 
 int	parse_map(t_data *all, t_list **map_ptr)
@@ -89,6 +89,7 @@ int	parse_map(t_data *all, t_list **map_ptr)
 	all->map_width = 0;
 	if (make_map_arr(all, map_ptr, all->map_h) < 0)
 		return (-1);
+	set_flag(all->cnfg->data + MAP);
 	if (check_map_hor(all->map, all->plr_data, &all->map_width) < 0 || \
 		make_rect_map(all->map, all->map_width) < 0 || \
 		check_map_ver(all->map, all->map_width) < 0)

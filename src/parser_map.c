@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 23:06:16 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/15 01:52:35 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/17 23:49:01 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int	check_one_line(char *line, t_plr *plr_data)
 
 	x = 0;
 	flag_whitespace = 0;
+	if (!ft_strchr("01NSWE ", line[x]))
+		return (put_error(CONFIG_ERR, ERR_UNKNOWN_SYM_MAP));
 	while (line[x])
 	{
 		if (flag_whitespace == 1)

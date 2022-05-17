@@ -6,7 +6,7 @@
 /*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 00:40:25 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/17 03:29:00 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/17 22:24:25 by dselmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char	*manage_config_errors(int error)
 	else if (error == ERR_SYM_AFTER_MAP)
 		return ("symbols after the map.");
 	else if (error == ERR_UKNOWN_SYM)
-		return ("identifiers error or identifiers in the wrong order.");
+		return ("uknown symbol encountered");
 	else if (error == ERR_NOT_CLOSED_MAP)
 		return ("the map is not closed.");
 	else if (error == ERR_DUPL_DATA)
