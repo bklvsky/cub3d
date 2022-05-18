@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/17 22:47:03 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/18 11:22:34 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # define FINISH_STEP 0.05
 # define PLR_SPEED 20
 # define FOV_DEG 60
+
+# define NUM_MONITOR 1
 
 # define NO_TEX 0
 # define SO_TEX 1

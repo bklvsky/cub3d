@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:18:29 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/17 03:34:24 by dselmy           ###   ########.fr       */
+/*   Updated: 2022/05/18 11:08:40 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	start_win(t_data *all)
 	if (!win->mlx)
 		return (put_error(MLX_ERR, ERR_STD));
 	mlx_get_screen_size(win->mlx, &(win->x_win), &(win->y_win));
+	win->x_win /= NUM_MONITOR;
 	if (fill_correction(all->plr_data, win->x_win))
 		return (put_error(MLX_ERR, ERR_STD));
 	win->prop = (double)win->x_win / (double)win->y_win;
