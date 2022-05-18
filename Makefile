@@ -6,7 +6,7 @@
 #    By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/27 21:46:39 by dselmy            #+#    #+#              #
-#    Updated: 2022/05/18 15:35:44 by hashly           ###   ########.fr        #
+#    Updated: 2022/05/18 16:21:50 by hashly           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,10 +93,10 @@ $(BIN_DIR):
 $(OBJ_DIR):
 	mkdir $(OBJ_DIR)
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INC)
 	gcc -c $(CFLAGS) -I $(INC_DIR) $< -o $@ -MD
 
-$(OBJ_DIR)%.o: $(SRC_BONUS_DIR)%.c
+$(OBJ_DIR)%.o: $(SRC_BONUS_DIR)%.c $(INC)
 	gcc -c $(CFLAGS) -I $(INC_DIR) $< -o $@ -MD
 
 libs:
