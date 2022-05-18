@@ -6,7 +6,7 @@
 #    By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/27 21:46:39 by dselmy            #+#    #+#              #
-#    Updated: 2022/05/18 10:57:31 by hashly           ###   ########.fr        #
+#    Updated: 2022/05/18 12:26:47 by hashly           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,8 @@ SRCS_NAME			=	cub3d.c \
 						get_distance.c \
 						get_crossing.c
 
-SRCS_NAME_BONUS		=	$(subst start_game.c, start_game_bonus.c, $(SRCS_NAME))
+TEMP				=	$(subst start_game.c, start_game_bonus.c, $(SRCS_NAME))
+SRCS_NAME_BONUS		=	$(subst put_screen.c, put_screen_bonus.c, $(TEMP))
 
 INC					=	$(addprefix $(INC_DIR), $(INC_NAME))
 SRCS				=	$(addprefix $(SRC_DIR), $(SRCS_NAME))
@@ -102,7 +103,7 @@ clean_libs:
 	@make clean -C $(MLX_PATH)
 
 fclean: clean
-	rm -rf $(BIN_DIR) ./cub3D ./cub3D_bonus $(LIBFT) $(MLX)
+	rm -rf $(BIN_DIR) ./cub3D $(LIBFT) $(MLX)
 
 re: fclean all
 
