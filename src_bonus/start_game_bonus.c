@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 15:07:58 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/18 18:21:59 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/18 21:21:34 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ static int	mouse_release(int button, int x, int y, void *param)
 	angle = fabs(diff) * M_PI / 3. / all->win->x_win;
 	while (angle > 0.)
 	{
-		if (diff > 0.)
+		if (diff < 0.)
 			plr_rot_left(all->plr_data);
-		else if (diff < 0.)
+		else if (diff > 0.)
 			plr_rot_right(all->plr_data);
 		put_screen(param);
 		angle -= PLR_SPEED_TURN;
