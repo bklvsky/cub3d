@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/18 11:22:34 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/18 15:36:09 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # define FOV_DEG 60
 
 # define NUM_MONITOR 1
+# define SCALE_MAP 10
+# define SIZE_POINT 4
 
 # define NO_TEX 0
 # define SO_TEX 1

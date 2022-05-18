@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 15:07:58 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/18 11:29:59 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/18 15:32:50 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,16 @@ static int	mouse_hook(int x, int y, void *param)
 	int		a;
 
 	all = param;
-	a = 40;
+	a = 30;
 	x_new = all->win->x_win / 2;
 	if (x - x_new > a)
 	{
-		if (x - x_new > 2 * a)
-			plr_rot_right(all->plr_data);
 		plr_rot_right(all->plr_data);
 		mlx_mouse_move(all->win->mlx, all->win->win, x_new, y);
 		put_screen(param);
 	}
 	else if (x - x_new < -a)
 	{
-		if (x - x_new < -2 * a)
-			plr_rot_left(all->plr_data);
 		plr_rot_left(all->plr_data);
 		mlx_mouse_move(all->win->mlx, all->win->win, x_new, y);
 		put_screen(param);

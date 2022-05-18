@@ -6,7 +6,7 @@
 #    By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/27 21:46:39 by dselmy            #+#    #+#              #
-#    Updated: 2022/05/18 12:26:47 by hashly           ###   ########.fr        #
+#    Updated: 2022/05/18 15:35:44 by hashly           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ INC_DIR				=	./inc/
 OBJ_DIR				=	./obj/
 
 INC_NAME			=	cub3d.h
-SRCS_NAME			=	cub3d.c \
+
+SRCS_COMMON			=	cub3d.c \
 						error.c \
 						free.c \
 						init_mlx.c \
@@ -37,7 +38,6 @@ SRCS_NAME			=	cub3d.c \
 						key_handle.c \
 						parse_end.c \
 						parser_map.c \
-						start_game.c \
 						parse_config.c \
 						parser_base.c \
 						parser_map_utils.c \
@@ -45,7 +45,6 @@ SRCS_NAME			=	cub3d.c \
 						parser_player.c \
 						player_rotate.c \
 						put_ray.c \
-						put_screen.c \
 						shutdown.c \
 						utils.c \
 						utils_get_wall.c \
@@ -55,13 +54,22 @@ SRCS_NAME			=	cub3d.c \
 						get_distance.c \
 						get_crossing.c
 
-TEMP				=	$(subst start_game.c, start_game_bonus.c, $(SRCS_NAME))
-SRCS_NAME_BONUS		=	$(subst put_screen.c, put_screen_bonus.c, $(TEMP))
+SRCS_ONLY_MANDATORY	=	put_screen.c \
+						start_game.c
+
+SRCS_ONLY_BONUS		=	put_screen_bonus.c \
+						start_game_bonus.c
+
+SRCS_FILE			=	$(SRCS_COMMON) $(SRCS_ONLY_MANDATORY)
+SRCS_FILE_BONUS		=	$(SRCS_COMMON) $(SRCS_ONLY_BONUS)
+
+SRCS_NAME				=	$(addprefix $(SRC_DIR), $(SRCS_COMMON)) $(addprefix $(SRC_DIR), $(SRCS_ONLY_MANDATORY))
+SRCS_NAME_BONUS			=	$(addprefix $(SRC_DIR), $(SRCS_COMMON)) $(addprefix $(SRC_DIR), $(SRCS_ONLY_BONUS))
+
 
 INC					=	$(addprefix $(INC_DIR), $(INC_NAME))
-SRCS				=	$(addprefix $(SRC_DIR), $(SRCS_NAME))
-OBJ					=	$(addprefix $(OBJ_DIR), $(SRCS_NAME:.c=.o))
-OBJ_BONUS			=	$(addprefix $(OBJ_DIR), $(SRCS_NAME_BONUS:.c=.o))
+OBJ					=	$(addprefix $(OBJ_DIR), $(SRCS_FILE:.c=.o))
+OBJ_BONUS			=	$(addprefix $(OBJ_DIR), $(SRCS_FILE_BONUS:.c=.o))
 DEP					=	$(addprefix $(OBJ_DIR), $(SRCS_NAME:.c=.d))
 
 MLX_FLAGS			=	-lXext -lX11 -lm -lbsd
