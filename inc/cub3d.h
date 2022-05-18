@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:50:39 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/18 16:24:09 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/18 18:21:25 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define START_STEP 2
 # define FINISH_STEP 0.05
 # define PLR_SPEED 20
+# define PLR_SPEED_TURN 0.05
 # define FOV_DEG 60
 
 # define NUM_MONITOR 1
@@ -135,6 +136,7 @@ typedef struct s_plr
 	double		*correction;
 	int			x_win;
 	int			y_win;
+	int			x_press;
 	t_crs		cross;
 }				t_plr;
 

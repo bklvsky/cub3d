@@ -6,7 +6,7 @@
 #    By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/27 21:46:39 by dselmy            #+#    #+#              #
-#    Updated: 2022/05/18 16:21:50 by hashly           ###   ########.fr        #
+#    Updated: 2022/05/18 18:22:24 by hashly           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,11 +81,9 @@ bonus: libs $(BIN_DIR) $(OBJ_DIR) $(NAME_BONUS)
 
 $(NAME): $(LIBFT) $(MLX) $(OBJ)
 	gcc -o $(NAME) $(CFLAGS) -I $(INC_DIR) $(OBJ) -L$(LIBFT_PATH) -lft -L$(MLX_PATH) -lmlx $(MLX_FLAGS)
-# cp $(NAME_BONUS) ./
 
 $(NAME_BONUS): $(LIBFT) $(MLX) $(OBJ_BONUS)
 	gcc -o $(NAME_BONUS) $(CFLAGS) -I $(INC_DIR) $(OBJ_BONUS) -L$(LIBFT_PATH) -lft -L$(MLX_PATH) -lmlx $(MLX_FLAGS)
-# cp $(NAME) ./
 
 $(BIN_DIR):
 	mkdir $(BIN_DIR)
@@ -111,7 +109,7 @@ clean_libs:
 	@make clean -C $(MLX_PATH)
 
 fclean: clean
-	rm -rf $(BIN_DIR) ./cub3D $(LIBFT) $(MLX)
+	rm -rf $(BIN_DIR) $(LIBFT) $(MLX)
 
 re: fclean all
 
