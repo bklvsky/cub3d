@@ -6,7 +6,7 @@
 /*   By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 15:07:58 by dselmy            #+#    #+#             */
-/*   Updated: 2022/05/18 11:22:18 by hashly           ###   ########.fr       */
+/*   Updated: 2022/05/18 11:29:59 by hashly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	mouse_hook(int x, int y, void *param)
 	x_new = all->win->x_win / 2;
 	if (x - x_new > a)
 	{
-		if (x - x_new > 2*a)
+		if (x - x_new > 2 * a)
 			plr_rot_right(all->plr_data);
 		plr_rot_right(all->plr_data);
 		mlx_mouse_move(all->win->mlx, all->win->win, x_new, y);
@@ -31,7 +31,7 @@ static int	mouse_hook(int x, int y, void *param)
 	}
 	else if (x - x_new < -a)
 	{
-		if (x - x_new < -2*a)
+		if (x - x_new < -2 * a)
 			plr_rot_left(all->plr_data);
 		plr_rot_left(all->plr_data);
 		mlx_mouse_move(all->win->mlx, all->win->win, x_new, y);
@@ -50,7 +50,7 @@ int	cub(t_data *all)
 	mlx_hook(all->win->win, 2, (1L << 0), &key_handle, all);
 	mlx_hook(all->win->win, 17, (1L << 17), stop_game, all);
 	mlx_mouse_hide(all->win->mlx, all->win->win);
-	mlx_hook(all->win->win, 6, (1L<<6), mouse_hook, all);
+	mlx_hook(all->win->win, 6, (1L << 6), mouse_hook, all);
 	mlx_loop(all->win->mlx);
 	return (0);
 }
