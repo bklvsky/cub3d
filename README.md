@@ -22,4 +22,4 @@ In a nutshell: `NO SO WE EA` keys mean textures for different sides of the map; 
 ### Credit
 
 The project was done in team with [hashly](https://github.com/hashlyschool).  
-My part of the project was - parser, textures, keys handling; and my teammate handled raycasting algorithm.
+My part of the project was the parser, textures, keys handling and player movements; and my teammate handled raycasting algorithm, mouse movements and minimap in the corner.
