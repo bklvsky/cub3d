@@ -3,17 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hashly <hashly@student.21-school.ru>       +#+  +:+       +#+         #
+#    By: dselmy <dselmy@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/27 21:46:39 by dselmy            #+#    #+#              #
-#    Updated: 2022/05/18 18:22:24 by hashly           ###   ########.fr        #
+#    Updated: 2022/05/19 17:22:56 by dselmy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-BIN_DIR				=	./bin/
-
-NAME				=	$(BIN_DIR)cub3D
-NAME_BONUS			=	$(BIN_DIR)cub3D_bonus
+NAME				=	cub3D
+NAME_BONUS			=	cub3D_bonus
 
 LIBFT_PATH			=	./libft/
 LIBFT_NAME			=	libft.a
@@ -75,18 +73,15 @@ DEP					=	$(addprefix $(OBJ_DIR), $(SRCS_NAME:.c=.d))
 MLX_FLAGS			=	-lXext -lX11 -lm -lbsd
 CFLAGS				=	-Wall -Werror -Wextra -O3
 
-all: libs $(BIN_DIR) $(OBJ_DIR) $(NAME)
+all: libs  $(OBJ_DIR) $(NAME)
 
-bonus: libs $(BIN_DIR) $(OBJ_DIR) $(NAME_BONUS)
+bonus: libs  $(OBJ_DIR) $(NAME_BONUS)
 
 $(NAME): $(LIBFT) $(MLX) $(OBJ)
 	gcc -o $(NAME) $(CFLAGS) -I $(INC_DIR) $(OBJ) -L$(LIBFT_PATH) -lft -L$(MLX_PATH) -lmlx $(MLX_FLAGS)
 
 $(NAME_BONUS): $(LIBFT) $(MLX) $(OBJ_BONUS)
 	gcc -o $(NAME_BONUS) $(CFLAGS) -I $(INC_DIR) $(OBJ_BONUS) -L$(LIBFT_PATH) -lft -L$(MLX_PATH) -lmlx $(MLX_FLAGS)
-
-$(BIN_DIR):
-	mkdir $(BIN_DIR)
 
 $(OBJ_DIR):
 	mkdir $(OBJ_DIR)
@@ -109,7 +104,7 @@ clean_libs:
 	@make clean -C $(MLX_PATH)
 
 fclean: clean
-	rm -rf $(BIN_DIR) $(LIBFT) $(MLX)
+	rm -rf  $(LIBFT) $(MLX) $(NAME) $(NAME_BONUS)
 
 re: fclean all
 
